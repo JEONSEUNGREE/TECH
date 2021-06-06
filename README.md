@@ -1,1 +1,2 @@
-# TECH
+# TECH 
+uploading every weekend
