@@ -1,0 +1,17 @@
+return문 메서드 주의점
+
+int something( int x , int y ){
+	if ( x > y)
+		return x;
+}
+
+위는 오류가 발생한다. 이유는 참일때는 x가 return되지만 거짓일때는 return이 없다.
+따라서 else로 거짓일때값을 설정해줄 필요가 있겠다.
+
+
+반환타입이 void가 아닐때 : 반환값 자동형변환 (shotrt,char,byte 가능) 
+EX) 메서드앞에 int형으로 자동형변환
+int add ( int x, int y ) {
+	int result = x + y;
+		return result;
+}

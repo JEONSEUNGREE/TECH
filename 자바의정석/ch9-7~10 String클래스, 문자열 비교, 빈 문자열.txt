@@ -1,0 +1,18 @@
+ch9-7~10 String클래스, 문자열 비교, 빈 문자열
+
+String클래스 = 데이터(char[]) + 메서드(문자열 관련)
+-내용을 변경할 수 없는 불변(immutable) 클래스
+
+덧셈연자를 이용한 문자열 겹합은 성능이 떨어짐
+String a = "a" 0x100
+String b = "b" 0x200
+a = a+b; 0x300
+문자열의 결합이나 변경이 잦다면 내용을 변경가능한 StringBuffer를 사용
+
+str == str1 주소비교
+str.equals(str1) 내용비교
+
+문자열 리터럴
+문자열 리터럴은 프로그램 실행시 자동으로 생성된다.(constant pool에 저장)
+
+

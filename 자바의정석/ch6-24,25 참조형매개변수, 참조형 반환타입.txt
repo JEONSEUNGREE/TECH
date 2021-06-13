@@ -1,0 +1,32 @@
+[자바의 정석 - 기초편] ch6-24,25 참조형매개변수, 참조형 반환타입
+
+class Data2 {
+int x;
+}
+
+public class Ex{
+public static void main( Stirng[] args){ // 참조형 매개변수
+	Data2 da = new Data2();
+	d.x = 10;
+	System.out.println("main() : x = " + d.x);
+
+	change(d);
+	System.out.println("After change(d)")
+	System.out.println("main() : x = " + d.x);
+}
+static void change(Data2 d) {
+	d.x = 1000;
+ 	System.out.println(" change() : x) = " + d.x);
+}
+}
+값이 바뀐다.
+기본형 매개변수는 그냥 값을 줬지만 참조형매개변수는 해당 객체의 주소를 전달해줬기때문에 d.x값이 변경되는것이다.
+
+
+만약 반환타입이 참조형 인경우 객체의 주소를 반환한다. 
+ex) static Data3 copy copy2(Data3 d){
+Data3 tmp = new Data3();
+tmp.x = d.x;
+return tmp (0x200)
+}
+메서드도 참조형이니 받는 객체도 참조형이어야한다.

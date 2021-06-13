@@ -1,0 +1,11 @@
+ ch9-19,20 StringBuffer클래스의 메서드
+
+자바의정석 책 참고
+StringBuffer()
+16문자를 담을 수 있는 버퍼를 가진 StringBuffer 인스턴스를 생성
+
+StringBuffer(int lenght)
+지정된 개수의 문자를 담을 수 있는 버퍼를 가진 인스턴스생성.
+
+메서드위주로 읽어보기만하면된다.
+

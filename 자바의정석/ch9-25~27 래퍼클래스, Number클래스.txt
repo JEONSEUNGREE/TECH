@@ -1,0 +1,15 @@
+ch9-25~27 래퍼클래스, Number클래스 
+
+8개의 기본형을 객체로 다뤄야할 때 사용하는 클래스
+- 기본형 값을 감싸는 클래스 
+- 앞글자를 대문자로 바꾸면 wrapper 클래스
+
+ex) 
+Integer i = new Integer(100);
+
+Number클래스
+
+- 모든 숫자 래퍼 클래스의 조상
+
++Double형 10^308 정밀도 15자리
+BigDecimal 아주 큰 실수 BigInteger 아주 큰 정수

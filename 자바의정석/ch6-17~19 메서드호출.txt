@@ -1,0 +1,8 @@
+ch6-17~19 메서드호출
+
+void Vs dataType
+void는 출력x return타입 생략가능. 대입연산자로 다른 변수에 저장함.
+데이터타입 있으면 return 있다.
+
+
+

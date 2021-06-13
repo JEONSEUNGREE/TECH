@@ -1,0 +1,49 @@
+ch8-11~14 예외선언하기, finally블럭
+
+예외를 처리하는 방법 : 1.직접처리하기 (try-catch문), 2. 예외 떠넘기기 (예외 선언하기, 알리기) 3.은폐 (덮기)
+
+메서드에 예외 선언하기
+예외를 처리하는 방법 : try-catch문,예외 선언하기
+메서드가 호출시 발생가능한 예외를 호출하는 쪽에 알리는 것.
+예외를 발생시키는 키워드 throw와 예외 메서드를 선언시 사용하는 throws를 잘 구별하자.
+
+JAVA API문서 
+wait 체크드 예외(wait은 필수처리예외 즉 Exception)
+InterruptException은 unchecked 예외처리 선택적
+
+Ex) 예외처리
+import java.io.File;
+
+public class pp {
+    public static void main(String[] args) {
+        try {
+            File f = creatfile("test.txt");
+            System.out.println(f.getName() + "파일이 성공적으로 생성되었습니다.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage() + "다시입력해주세요");
+        }
+    }
+
+    static File creatfile(String fileName){
+        try {
+            if (fileName == null || fileName.equals("")) {
+                throw new Exception("파일 이름이 유효하지 않습니다.");
+            }
+        } catch (Exception e) {
+            fileName = "제목없음";
+        }
+        File f = new File(fileName);
+        return f;
+    }
+}
+
+finally 블럭
+예외 발생여부와 관계없이 수행되어야 하는 코드를 넣는다.
+try{
+//예외 발생 가능성 문장
+} catch (Exception e){
+//예외처리를 위한 문장
+} finally{
+예외 발생여부에 관계없이 항상 마지막에 수행되어야하는 문장들
+}
+			

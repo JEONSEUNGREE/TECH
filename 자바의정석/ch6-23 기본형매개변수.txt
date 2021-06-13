@@ -1,0 +1,25 @@
+[자바의 정석 - 기초편] ch6-23 기본형매개변수
+
+기본형 매개변수 - 변수의 값을 읽기만 할 수 있다.(read only)
+참조형 매개변수 - 변수의 값을 읽고 변경 할 수 있다. (read & write)
+
+
+class Data{
+int x
+}
+
+public class ex {
+	public static void  main(String[] args) {
+		Data da = new Data();
+		da.x = 10;
+		change(da.x)
+		System.out.println( " da.x = " + da.x);
+}
+}
+
+static void change ( int x ) { //기본형 매개변수 read 만가능
+	x = 1000;
+System.out.println( "change() : x = " + x);
+}
+
+여기서 지역변수 값만 변경되기때문에 결국 da.x와 change 내부 x는 서로 다르다.

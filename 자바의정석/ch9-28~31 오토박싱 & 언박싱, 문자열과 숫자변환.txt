@@ -1,0 +1,25 @@
+ch9-28~31 오토박싱 & 언박싱, 문자열과 숫자변환
+
+문자열을 숫자로 변환하기
+int i = new Integer("100").intvalue();
+int i2 = Integer.parseInt("199");
+int i3 = Integer.valueOf("110");
+
+n진법의 문자열을 숫자로 변환하는 방법
+int i4 = Integer.parseInt("100",2); 이진수   4
+int i5 = Integer.parseInt("100",8); 이진수로   64
+int i6 = Integer.parseInt("100",16); 이진수로   256
+int i7 = Integer.parseInt("100",16); 이진수로   255
+
+오토박싱 & 언박싱
+int -> Integer 로 자동으로 바꿔주는 것을 오토박싱
+int <- Integer 로 바꾸는 것 언박싱
+
+즉 기본형과 참조형간의 덧셈가능
+
+예) 
+컴파일전 코드                                       컴파일 후의 코드(자동)
+Integer intg = (integer)i;               Integer intg = Interger.valueOf(i);    ---오토박싱
+
+Integer iobj = new Interger(7) 
+int i = i + iobj.invalue();     ---언박싱

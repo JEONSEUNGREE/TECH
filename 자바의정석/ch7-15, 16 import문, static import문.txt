@@ -1,0 +1,23 @@
+[자바의 정석 - 기초편] ch7-15, 16 import문, static import문
+
+import 문
+클래스를 사용할 때 패키지이름을 생략할 수 있다.
+컴파일러에게 클래스가 속한 패키지를 알려준다.
+
+java.lang패키지의 클래스는 import를 하지 않고도 사용가능 (생략가능)
+String,Object,System,Thread.....
+
+import문은 패키지문과 클래스 선언의 사이에 선언한다.
+
+static import문
+static 멤버를 사용시 클래스 이름을 생략할 수 있게 해준다.
+import static java.lang.Integer.*;        //Integer 클래스 내의 모든 static 멤버( static변수,static메서드) 생략가능
+import static java.lang.Math.random; //Math.random() 괄호 안붙임.
+import static java.lang.System.out;   //out static변수
+out.println(random()); 으로 출력가능 (import문을 써서 Math, System.out을 생략)
+
+out.println("Math.PI : " + PI);
+
+static import문은 장단점 이있음
+코드가 간결해지는 장점
+명확히 어디 클래인지 헷갈리는 단점

@@ -1,0 +1,22 @@
+ch7-24,25 참조변수의형변환(1)
+
+참조변수의 형변환
+
+-사용할 수 있는 멤버의 갯수를 조절하는 것.
+-조상 자손 관계의 참조변수는 서로 형변환 가능
+Ex) class car{}
+class FirseEngine extends car{}
+class ambulance extends car{}
+조상과 자손 가능 But 형제 끼리 불가능
+
+FireEngine f = new FireEngine();
+
+car c = (car) f; // 조상인 car 타입으로 형변환 가능 (생략가능)
+
+FireEngine f2 = (FrieEngine)c; // 자손인 FireEngine타입으로 형변환가능 (생략불가능)
+Ambulance a = (Ambulance)f; // 상속 관계가 아닌 클래스 간의 형변환불가
+
+마치 강제형변환과 자동형변환에서 반대느낌 큰에서 작을 갈때는 문제X , 작에서 큰갈때는 형변환 필요
+줄이는 것은 안전 늘리는것이 위험
+
+

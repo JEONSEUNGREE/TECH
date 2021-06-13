@@ -1,0 +1,28 @@
+ch8-9,10 예외발생시키기
+
+1. 연산자 new를 이용해서 발생시키려는 예외 클래스의 객체를 만든 다음
+Exception e = new Exception("고의로 발생");
+
+2. 키워드 throw를 이용해서 예외를 발생시킨다.
+throw e;
+
+public static void main(String args[])
+try{
+Exception e = new Exception
+throw e //예외 발생키심
+//throw new Exception(고의발생) 한줄로가능
+
+
+}catch(Exception e)
+System.out.println("에러메시지" +e.getMessage());
+e.printStacktrace();
+
+System.out.println("프로그램이 정상종료됨")
+}
+
+checked에외, unchecked예외
+
+checked예외 : 컴파일러가 예외 처리 여부를 체크(예외 처리 필수) Exception - Exception과 자손 : 예외 필수 (try-catch)
+unchecked예외 : 컴파일러가 예외 처리 여부를 체크 안함(예외 처리 선택) Exception - RuntimeException과 자손 : 선택 (try-catch)
+
+RuntimeErrot는 프로그래머가 실수하는 부분 따라서 try-catch 처리를 다하면 말도안되게 길어지고 불편 따라서 선택적

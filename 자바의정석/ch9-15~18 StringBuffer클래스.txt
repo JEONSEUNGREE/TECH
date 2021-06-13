@@ -1,0 +1,19 @@
+ch9-15~18 StringBuffer클래스
+
+String처럼 문자형 배열(char[])을 내부적으로 가지고 있다.
+
+그러나 String과 달리 내용을 변경할 수 있다. (mutable)
+StringBuffer sb = new StringBuffer ("ABC");
+
+sb.append("123"); sb의 내용 뒤에 "123"을 추가 
+String과 같이 주소가 따로 생성되지않는다.
+
+append() 끝에 문자열 추가
+delete() 삭제
+insert() 삽입
+
+StringBuffer는 equals()가 오버라이딩 되어있지않아서 (주소비교)
+StringBuffer를 String으로 변환한 후에 equals()로 비교해야한다.
+예)
+Stirng s = sb.toString();
+sout(z.equals(s));

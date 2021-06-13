@@ -1,0 +1,54 @@
+ch9-4~6 hashCode(), toString()
+
+hashcode()
+객체의 해시코드(hash cod)를 반환하는 메서드
+Object클래스의 hashcode()는 객체의 주소를 int로 변환해서 반환
+native 메서드 : OS의 메서드(c언어) 자바메서드처럼 사용가능
+
+주소를 가지고 작업하는 equals , hashcod()이기때문에 하나오버라이딩하면 같이 오버라이딩해야된다.
+
+toString()의 오버라이딩
+객체를 문자열로 변환하기 위한 메서드
+public String toString() {
+	return getclass().getNave()+"@"+Integer.toHexString(hashCode());
+}		설계도객체, 클래스이름 @(at)위치	16진	객체주소
+
+예)
+
+public class pp {
+    public static void main(String[] args) {
+        Card c1 = new Card();
+        Card c2 = new Card();
+
+        System.out.println(c1.equals(c2));
+
+        System.out.println();
+    }
+}
+class Card extends Object{
+    int number;
+    String kind;
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(kind, number);
+    }
+    
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Card)) {
+            return false;
+        }
+        Card c = (Card) object;
+        return this.kind.equals(c.kind) && this.number == c.number;
+    }
+    
+    @Override
+    public String toString() {
+        return "kind :" + kind + ", number : " + number;
+    }
+
+}
+
+
+

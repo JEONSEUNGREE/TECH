@@ -1,0 +1,37 @@
+ch9-11 String생성자
+
+자바의 정석 469P
+
+String(String s) ---.String s = new String("Hellow') --->String "Hello"
+주어진 문자열(s) 갖는 String인스턴스 생성
+
+String(char[] value) ---->char[] c = {'h','e','l','l','o'}----->s = "hello"
+주어진 문자열을 갖는 String인스턴스를 생성한다.
+
+String(Stringbuffer buf) -->StringBuffer sb = new StringBuffer("hello") -->String s = new String(sb); --->s = "hello"
+String Buffer인스턴스가 갖고 있는 문자열과 같은 내용의 String인스턴스를 생성한다.
+
+char charAt(int index)
+지정된 위치에있는 문자를 알려준다. 물론 index 0부터시작
+
+int compareTo(String str) int i = "aaa".compareTo("aaa"); ==0; ----> int i3 = "bbb".compareTo("aaa"); ==i3 = 1;
+문자열과 사전순서로 비교한다. 같으면 0을 사전순으로 이전이면 음수를 이후면 양수를반환
+
+String concat
+문자열str을 뒤에 붙인다.
+
+boolena contains(charSequence s)
+지정된 문자열이 포함되었는지 검사한다.
+
+boolean endsWith(String suffix)
+지정된 문자열(suffix)로 끝나는지 검사한다.
+
+boolean equals(Object obj)
+문자열 비교
+
+boolean equalsIgnoreCase(Sting str)
+대소문자 관계없이 비교
+
+int indexOf(int ch)
+주어진 문자열에 존재하는 확인 위치를 알려줌 못찾으면 -1
+

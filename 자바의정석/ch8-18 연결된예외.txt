@@ -1,0 +1,21 @@
+ch8-18 연결된예외
+
+Chained Exception
+한예외가 다른 예외를 발생시킬 수 있다.
+예외 A가 예외  B를 발생시키면, A는 B의 원인 예외(cause exception)
+
+Throwable initCause(Throwable casue) 지정한 예외를 원인 예외로 등록
+Throwable getCasue() 원인 예외를 반환
+
+1번째 예)
+ void install() throws InstallException{
+try{
+startInstall();
+cpyFiles();
+} catch ( SpaceException e) {
+InstallException ie = new InstallException("설치중 예외발생")
+ie.initCause(e) //InstllExcption발생원인예외를 spaceExcpetion으로 지정
+throw ie; //installException을 발생시킨다.
+
+2번째 예)
+checked예외를 unchecked예외로 변경하려 할 때

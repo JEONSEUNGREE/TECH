@@ -1,0 +1,80 @@
+ch7-38인터페이스와 다형성
+
+일전에 자손클래스의 인스턴스를 조상타입의 참조 변수로 참조하는 것이 가능한것을 배웠다. = 다형성
+마찬가지로 인터페이스 역시 클래스의 조상이라 할 수 있다.
+Ex)
+Fightable f = (Fightable) new Fighter();
+Fightable f = new Fighter(); 
+마찬가지로 인터페이스에서 정의된 멤버들만 호출가능 (다형성)
+------이부분에서 헷갈린다면 JAVA정석 책 참조 387P-------
+
+-인터페이스도 구현 클래스의 부모
+
+선언부 충돌 상관없음 
+인터페이스의 경우 인터페이스 내부의 객체만 사용가능
+Ex) interface Fightable{
+	void move(int x , int y );
+	void attack(Fightable f);
+}
+implements시에 위 두가지 기능만 구현 가능
+
+또한 void attck(Fightable f)의 뜻은 Fightalbe 인터페이스를 구현한 클래스의 인스턴스만 가능하다는뜻.
+
+인터페이스를 메서드의 리턴타입으로 지정할 수 있다.
+Fightable method() {
+	Fighter f = new Fighter();
+	return f;  //인터페이스를 구현한 객체를 반환 (타입이 맞아야하니까)
+}  위 두문장을 한문장으로 바꾸면 return new Fighter(); 이다.
+--->				구현
+class Fighter extends Unit implements Fightable{
+	public void move( int x , int y ){}
+	public void attack(Fightable f) {}
+}
+
+즉 인터페이스 참조변수로 자손객체를 가르킨다. (다형성) Figthable f = method(); ======Fightable f = new Fightable();
+
+
+
+Ex)
+abstract class  Unit2{
+    int x , y;
+    abstract void stop(int x, int y);
+    void stop (){
+        System.out.println("멈춥니다. ");
+    }
+}
+
+interface Fighable { //Interface의 모든 메서드는 public abstract. 예외없이
+    void move(int x, int y); //public abstract가 생략됨 마차가지로 구현부가 없기때문
+    void attack(Fighable f);
+}
+
+class Fighter extends Unit2 implements Fighable {
+//마찬가지로 하나만 구현하면 abstract로 제어자 붙여주면됨
+
+    @Override
+    void stop(int x, int y) {
+        System.out.println("");
+    }
+
+    @Override
+    public void move(int x, int y) { //오버라이딩 규칙 : 조상보다 접근제어자가 좁으면 안된다.
+        System.out.println("[" + x + "]" + "[" + y + "]");        //따라서 디폴트가 기본이기에 public이 되야한다.
+    }
+
+    @Override
+    public void attack(Fighable f) {
+        System.out.println(f + "를 공격");
+    }
+}
+
+public class pp {
+    public static void main(String[] args) {
+//        Fighter f = new Fighter();
+        Fighable f = new Fighter();
+        Unit2 f2 = new Fighter();
+        f.move(100, 200);
+        f.attack(new Fighter());
+//        f.move(f2);
+    }
+}
