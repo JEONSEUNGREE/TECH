@@ -1,0 +1,26 @@
+ch12-2,3 타입 변수
+
+객체를 생성시, 타입변수(E) 대신 실제 타입(Tv)을 지정(대입)
+
+ArrayList<Tv> tvList = new ArrayList<Tv>();
+
+예)
+mport java.util.ArrayList;
+
+class Tv {
+}
+
+class Audio {
+
+}
+public class server {
+    public static void main(String[] args) {
+        ArrayList<Tv> list = new ArrayList<Tv>();
+        list.add(new Tv());
+//        list.add(new Audio());
+        Tv t =  list.get(0);
+//        Tv t = (Tv) list.get(0);
+            //예전에는 Object라 형변환 필요했는데 이제는 일치하기 때문에 불필요
+
+    }
+}

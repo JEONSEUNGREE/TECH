@@ -1,0 +1,26 @@
+ch12-4~6 지네릭스용어, 지네릭 타입과 다형성
+
+class Box <T>{}
+Box<T> 지네릭 클래스. T의 Box 또는 T Box라고 읽는다.
+T 타입 변수 또는 타입 매개변수 (T는 타입 문자)
+Box 원시타입(raw type) 일반클래스 -> 지네릭클래스
+ㄴ
+대입된 타입(매개변수화된 타입)
+
+Box<String> b = new Box<String>();
+     <>지네릭타입 호출 일치 생성객체와
+다형성 처럼 되는것이아니라(조상 자손관계) 일치해야한다.
+
+List<Tv> list = new ArrayList<Tv>();
+List<> list = new LinkedList<Tv>();
+이건됨 다형성
+
+매개변수의 다형성도 성립.
+또 다형성을 적용해서 Product의 자손 클래스 가능
+ArrayList<Product> list = new ArrayList<Product>();
+list.add(nwe Product());
+list.add(nwe Tv());
+list.add(nwe Audio());
+
+Product p = list.get(0);
+Tv t = (Tv)list.get(1); //Product기때문에

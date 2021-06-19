@@ -1,0 +1,26 @@
+ch11-52~56 Collections클래스, 컬렉션 클레스 요약
+
+Collections - 컬렉션을 위한 메서드를 제공
+
+1. 컬렉션 채우기,복사,정렬,검색 - fill, copy, sort, binarySearch
+2. 컬렉션의 동기화 - synchronizedXXX()
+구버전인 vector 는 동기화 되있지만 ArrayList의 경우 동기화가 되있지않다.
+
+List syncList = collection.synchronizedList(new ArrayList()); 로 동기화 할수 있다.
+
+3. 변경 불가 컬렉션 만들기 - unmodifiableXXX()
+
+4. 싱글톤 컬렉션 만들기 - singletonXXX()
+객체 1개만 저장
+
+5. 한종류의 객체만 저장하는 컬렉션 만들기 - checkedXXX() ex)Integer , String  등의 특정 타입만 add되는 객체
+
+컬렉션 클래스 정리 & 요약
+
+LIFO - Stack - ArrayList
+
+FiFO - Queue - LinkedList
+
+HashMap은 ArrayList와 LinkedList의 장점을 갖고 만든 것.
+
+

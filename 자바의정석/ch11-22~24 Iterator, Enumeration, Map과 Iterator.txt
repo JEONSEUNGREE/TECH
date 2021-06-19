@@ -1,0 +1,33 @@
+ch11-22~24 Iterator, Enumeration, Map과 Iterator
+
+컬렉션에 저장된 데이터를 접근하는데 사용되는 인터페이스
+-Enumeration은 Iterator의 구버전
+-ListIterator는 Iterator의 접근성을 향상시킨 것 (단방향 -> 양방향)
+
+컬렉션에 저장된 요소들을 읽어오는 방법을 표준화한것
+즉 List, Set 등 구조가 각기 다르기때문에 읽어오는 방법을 표준화하기위한것
+List에서 set으로 바꾸면 읽어오는 코드가 다르다 이때 Iterator를 쓰면 코드 그대로 사용가능
+
+boolean hasNext() 읽어 올 요소가 남아있는지 확인 true,false반환
+object next() 다음 요소를 읽어온다. next()를 호출하기 전에 hasNext()를 호출해서 읽어 올 요소가 있는지 확인하는 것이 안전
+
+ArrayList list = new ArrayList();
+list.add("1");
+list.add("2");
+
+Iterator it = list.Iterator();
+
+while(it.hasNext()) {
+	Object obj = it.next();
+	System.out.printnln(obj);
+}
+//iterator는 1회요이라 다쓰고나면 다시 얻어와야한다.
+
+it = list.iterator();
+
+주의 : Map은 collection의 자손이 아니다. 따라서 iterator()가 없다.
+map은 keyset(),entryset(),value()
+
+Map map = new HashMap();
+		entry(k,v)
+Iterator it = map.entrySet().iterator();

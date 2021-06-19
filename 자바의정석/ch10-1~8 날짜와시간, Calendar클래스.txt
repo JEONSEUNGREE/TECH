@@ -1,0 +1,17 @@
+ch10-1~8 날짜와시간, Calendar클래스
+
+java.util.Date
+날짜와 시간을 다룰 목적으로 만들어진 클래스
+
+java.util.Calendar
+Date클래스를 개선한 클래스 
+
+java.time패키지
+Date와 Calendar의 단점을 개선
+LocalTime , LocalDate 분리해서 사용가능 
+
+Calender클래스
+추상클래스이므로 getInstance()를 통해 구현된 객체를 얻어야 한다.
+
+set()으로 날짜와 시간 지정하기
+void set(int year, int month, int date, int hourOfDay, int minute, int second)
