@@ -1,0 +1,27 @@
+@Controller
+
+스프링이 처음뜰때 스프링 container라는 통이 생긴다.
+거기에 @Controller 가있으면 해당 메서드를 스프링 contatiner에 넣어두고 관리한다. (스프링 빈이 관리된다고 보면된다.)
+
+현재 hello-spring의 경우 구조
+helloController -> memberService - memeberRepository
+
+@Controller , Repository, Service 가 등록이 되면 스프링이 시작되면서 자동으로 등록이된다.
+@Controller와 Service 연결 @Autowired 멤버 컨트롤러가 연결이될때 내부에 @Autowired를 통해 멤버서비스 객체를 가져다
+넣어준다. DI(Dependency Injection)
+또 서비스에 가서 등록이면서 내부에 @Autowired에서 memberService부분의 Repository를 자동으로 찾아서 등록해준다.
+
+스프링 빈 등록방법 두가지가 있음
+컴포넌트 스캔과 자동의존관계 설정 (@Controller , Repository, Service 내부에 @Componenet 스캔)
+자바 코드로 직접 스프링 빈 등록하기
+
+여기서 자동의존관계 설정에서 주의점
+같은 패키지 내부에서만 가능하다. 다른 패키지는 스캔하지않는다.
+즉 test 패키지 내에서 controller, repository, service package는 찾지만 test패키지말고 다른 패키지내부에서는 스프링이 기본적으로 스캔하지않음.
+
+또한 스프링은 스프링컨테이너에 스프링 빈을 등록할때 싱글톤으로 등록한다.(설정으로 변경가능)
+여기서 싱글톤이란 스프링에서에서 controller ,service, repository을 하나만 등록하고 공유한다는 뜻이다.
+memberservice말고 orderservice를 해서 등록해도 @autowired로 repository요구한다해도
+같은 스프링 빈이면 모두 같은 인스턴스다.
+
+

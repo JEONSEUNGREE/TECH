@@ -1,0 +1,26 @@
+요즘에 maven이나 gradle 모두 의존관계를 관리한다. 따라서 의존관계가 있는 라이브러리를 함께 다운한다.
+web하나에 필요한 모든 의존관계를 다 땡겨온다. external libralies를 확인해보면 엄청난 라이브러리가있다. 
+spring initializer에서 소량선택했지만 그 관련 라이브러리가 엄청많다.
+
+많이사용하는 Slf4j, logback등이 자동으로 땡겨와진다.
+
+test용 junit,assertj,mockito
+
+스프링 부트 라이브러리
+Spring-boot-starter-web
+spring-boot-starter-tomcat: 톰캣(웹서버)
+spring-webmvc: 스피링 웹 MVC
+
+spring-boot-starter-thymeleaf:타임리프 엔진(vie)
+spring-boot-starter(공통) 스프링 부트 + 스프링코어  + 로깅
+spring-boot 
+- spring core
+spring-boot-starter-loggin
+-logback,slf4j
+
+테스트 라이브러리
+spring boot starter test
+junit : 테스트 프레임 워크
+mockito : 목라이브러리
+assertj : 테스트 코드를 좀 더 편하게 작성하게 도와주는 라이브러리
+spring-test : 스프링 통합 테스트 지원

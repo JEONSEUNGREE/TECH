@@ -1,0 +1,36 @@
+spring initializr
+
+project Maven : 필요한 라이브러리를 가져오고 빌드하는 라이프 사이클 관리
+          Graden : 요즘은 거의 Gradle Project사용
+
+sprin boot 
+snapshot, m1 들은 아직 정식 릴리즈 된것이 아닌것
+
+generate하고 import하면  외부에서 수십메가 받으면서 기다렸다가 빌드됨
+
+
+
+인텔리제이
+main 자바
+rsc 자바제외 파일
+build gradle 예전에는 하나씩 다 쳤지만 spring boot로 설정이 완료되있음
+
+build.gradle부분에서
+
+repositories {
+	mavenCentral()
+}
+//repositories는
+mavenCentral에서 필요한 라이브러리 다운 
+
+아까 설정했던 라이브러리들 depencies에 있음 안쓰는거는 주석처리해놓자
+
+참고로 파일 디렉토리설정이 폴더 두개로 겹쳐보이면 설정에 compactmiddlepackages를 해제하면 된다.
+
+실행하면
+Tomcat started on port(s): 8080 (http) with context path 라는 컴파일 메시지가있다.
+이때 사이트 연결 하면 (local) Whitelabel Error Page 가 나옴.
+여기서 Tomact은 웹서버 스프링에 내장되있는 웹서버
+
++
+gradle에서 자바를 잡으면 느려서 setting에 gradle을 찾아 run사용을 intelliJ로 바꿔주는게 속도가 빠르다.
