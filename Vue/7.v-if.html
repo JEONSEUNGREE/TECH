@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <!-- <div v-if="show">yes</div>
+        <!- if의 true,false 여부에따라 랜더링이 될지 안될지 갈리게된다. -->
+        <!-- ============================================ -->
+        <template v-if="number % 2 != 0">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </template>
+        <div v-else-if="number % 2 === 0">Hi</div>
+        <div v-else>No</div>
+        <br>
+        <button @click="increaseNumber">increase</button> {{ number }}
+
+        <div v-show='show'>보임</div>
+        <button @click='showing()'>안보임</button>
+        <!-- 그럼 if와 show의 차이가 무엇일까? -->
+        <!-- v-if는 false인경우 아예 랜덩이하지않고 v-show는 랜더링했지만 보이지않는 스타일 -->
+        <!-- v-if는 토글비용이 높고 v-show는 초기 랜더링 비용이 높기때문에 자주바꾼다면 v-show를 조건이 바뀌지않는다면 v-if 권장-->
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                number: 1,
+                show: false
+        
+            },
+            methods: {
+                increaseNumber(){
+                    this.number++;
+                },
+                showing(){
+                    this.show = !this.show
+
+                }
+            },
+            
+        })
+    </script>
+    
+</body>
+    
+</html>

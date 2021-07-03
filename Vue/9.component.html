@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <!-- {{ name }} <br>
+        <button @click='changeText'>Click</button>
+
+        <hr> -->
+        <hr>
+        <seungbutton></seungbutton>
+    </div><hr>
+    <div id="app-1">
+        <hr>
+        <!-- {{ name }}
+
+        <hr> -->
+
+        <!-- <Jeonbutton></Jeonbutton> -->
+        <hr>
+    </div>
+
+    
+    <script>
+        //component로 전역등록 어떤 태그에서도 사용가능 static 같은 느낌
+        //단 하나의 태그안에 코드들이 들어가야한다는 규칙이있음
+        //또한 전역이기때문에 component안에서 component 사용가능 
+        // 단점 더이상 사용하지않는 경우 최종빌드에도 들어가게된다. 이 경우 때문에 지역등록을 할필요가있다.
+        Vue.component('helloworld', {
+            template: `<div>hellow-world</div>`
+        })
+        
+        // Vue.component('Jeonbutton', {
+        //     template: 
+        //         `<div>
+        //         {{ name }}<br> 
+        //         <helloworld>
+        //             </helloworld>
+        //         <button @click='changeText'>Click</button>
+        //         </div>`,
+        //     // 여기서는 작은 따옴표가아닌 백틱을 사용하도록한다.
+        //     // 템플릿안에는 himl태그가 들어간다.
+
+        //     // 다음과같이 오브젝트형태인 data: 를 사용시 reference로 다른 여러곳에서 component사용시에 변경할때 동시에 업데이트가
+        //     // 되버린다. 따라서 함수형으로 바꿔주어야한다. data()
+            
+        //     data() {
+        //        return {
+        //            name: 'ree'
+        //        }
+        //     },
+        //     methods: {
+        //         changeText(){
+        //             this.name = 'updated Jeon'
+        //             // this.name = app1.name
+        //             // app1.name = 'updated deffent instance'도 가능
+        //         }
+              
+        //     },
+        // })
+        //지역변수 사용법
+        const seungreebutton = {
+            template: 
+                `<div>
+                {{ name }}<br> 
+                <helloworld>
+                    </helloworld>
+                <button @click='changeText'>Click</button>
+                </div>`,
+            // 여기서는 작은 따옴표가아닌 백틱을 사용하도록한다.
+            // 템플릿안에는 himl태그가 들어간다.
+
+            // 다음과같이 오브젝트형태인 data: 를 사용시 reference로 다른 여러곳에서 component사용시에 변경할때 동시에 업데이트가
+            // 되버린다. 따라서 함수형으로 바꿔주어야한다. data()
+            
+            data() {
+               return {
+                   name: 'ree'
+               }
+            },
+            methods: {
+                changeText(){
+                    this.name = 'updated Jeon'
+                    // this.name = app1.name
+                    // app1.name = 'updated deffent instance'도 가능
+                }
+              
+            },
+        }
+        const app = new Vue({
+            el: '#app',
+            components: {
+                'seungbutton': seungreebutton
+            }
+            // data: {
+            //    name: "Jeon"
+        
+            // },
+            // methods: {
+            //     changeText(){
+            //         this.name = 'updated Jeon'
+            //         // this.name = app1.name
+            //         // app1.name = 'updated deffent instance'도 가능
+            //     }
+              
+            // },
+        })
+        // 만약에 app의 버튼을 클릭해서 app-1의 name으로 update하고 싶다면?
+        // const로 이름없는 객체에 이름을 정해주면 된다.
+        const app1 = new Vue({
+            el: '#app-1',
+            // data: {
+            //    name: "Seung"
+        
+            // },
+            // methods: {
+            //     changeText(){
+            //         this.name = 'updated Jeon'
+            //     }
+            // },
+        })
+    </script>
+    
+</body>
+    
+</html>

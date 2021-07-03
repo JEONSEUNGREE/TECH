@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <form v-on:submit.prevent="submit">
+            <input type="text"><br>
+            <button type="submit">Submit</button>
+            //공식문서 이벤트에서 prevent를 통해 페이지 reload를 방지한다.
+        </form>
+        {{ year }}
+        <button v-on:click="plus">빼기</button>
+        <button v-on:click="minus">더하기</button>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                year: 2018
+
+
+            },
+            methods: {
+                plus(){
+                    this.year -= 1;
+                },
+                
+                minus(){
+                    this.year += 1;
+                },
+                submit(){
+                    alert('제출됨')
+                    console.log("submit")
+                },
+                
+
+                
+            },
+        })
+    </script>
+    
+</body>
+    
+</html>

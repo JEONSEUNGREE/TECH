@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        {{ name }}
+        <button @click='changeText'>Click</button>
+    </div>
+    <div id="app-1">
+        {{ name }}
+    </div>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+               name: "Jeon"
+        
+            },
+            methods: {
+                changeText(){
+                    this.name = app1.name
+                    // app1.name = 'updated deffent instance'도 가능
+                }
+              
+            },
+        })
+        // 만약에 app의 버튼을 클릭해서 app-1의 name으로 update하고 싶다면?
+        // const로 이름없는 객체에 이름을 정해주면 된다.
+        const app1 = new Vue({
+            el: '#app-1',
+            data: {
+               name: "Seung"
+        
+            },
+            methods: {
+                changeText(){
+                    this.name = 'updated Jeon'
+                }
+            },
+        })
+    </script>
+    
+</body>
+    
+</html>
