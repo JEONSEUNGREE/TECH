@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뷰 기초 익히기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!-- v-on은 @ -->
+    <div id="app">
+        <div >{{ name }}</div>
+        <button @click="change">클릭</button>
+        </div>
+        <div id="opp">
+        <div >{{ name }}</div>
+        <button @click="change">클릭</button>
+        </div>
+          <script>
+              var app = new Vue({
+                  el: '#app',
+                  data: {
+                    name: 'data1',
+                    some: 'why'
+                  },
+                  methods: {
+                      change() {
+                          this.name = hehe.name
+                      }
+            
+                  },
+
+ 
+              })
+              const hehe = new Vue({
+                  el: '#opp',
+                  data: {
+                    name: 'data5'
+                  },
+                  methods: {
+                      change() {
+                          this.name = app.name
+                      }
+                  }
+              })
+
+        </script>
+</body>
+</html>
+<style scoped>
+    * {
+        background-color: black;
+        color: #ffffff;
+    }
+</style>
+ 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        {{ reversedMessage }}
+        <!-- //자바스크립트 문법인데 1. 먼저 split으로 단어하나씩 쪼갠후 역순으로 배치한다음 조인한다. -->
+        <!-- 메서드에 넣을때는 ()를 넣어주어야 사용가능하다 그러면 차이점은 무엇인가? -->
+        <!-- computed속성은 캐싱을하고 메서드사용시 사용할때 계산한다.여러개있는경우 computed는 계산되있기때문에
+             한번에 여러개를 넣어주지만 메서드는 같은계산을 여러번반복한다. 값이 바뀌지않는한 compted가 유리하다. -->
+        
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                massage: '안녕하세요'
+                
+            },
+            methods: {
+
+            },
+                
+            computed: {
+                reversedMessage() {
+                    return this.massage.split('').reverse().join('')
+                }
+            }
+            
+            
+        })
+    </script>
+    
+</body>
+    
+</html>
