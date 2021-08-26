@@ -8,15 +8,20 @@ spring:
     password: khWeb@123
     driver-class-name: com.mysql.cj.jdbc.Driver
     dialect: org.hibernate.dialect.MySQL8Dialect
+#    initialization-mode: always
 
   jpa:
     open-in-view: false
     database: mysql
     show-sql: true
     generate-ddl: true
-    hibernate:
-      format_sql: true
-      ddl-auto: create
+#    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+        ddl-auto: create
+        show_sql: true
+        use_sql_comments: true
 #      properties:
 #        hibernate:
 #          ddl-auto: create-drop
@@ -26,6 +31,7 @@ spring:
 
 logging:
   level:
+    org.hibernate.type.descriptor.sql: trace
     org:
       hibernate:
         format_sql: DEBUG
