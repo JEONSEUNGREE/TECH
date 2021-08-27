@@ -2,7 +2,9 @@ plugins {
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
+
 
 group = 'hellojpa'
 version = '0.0.1-SNAPSHOT'
