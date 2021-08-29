@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,8 @@ public class Order {
 
 //    oneToone의 경우 FK를 양쪽 어디에 둬도 상관없지만
 //    최대한 액세스가 많고 주문이 배송을 찾지 배송에서 주문을 찾는경우는 적기때문
+//    프록시라서 bytebuddy라는 더미만 있기때문에 lazy의 경우 오류발생
+    @JsonIgnore
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "deliver_id")
     private Delivery delivery;
