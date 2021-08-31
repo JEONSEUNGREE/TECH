@@ -289,6 +289,41 @@ class MemberRepositoryTest {
         }
     }
 
+    @Test
+    public void queryHint() {
+//      다음과같은 코드에서는 변경감지가 작동중이기때문에 변화를 감지해서 굳이 save하지않아도 알아서 트랜잭션이 끝나는 시점에 db동기화가 실행되는데
+//        문제는 객체가 두개가 생성되어있다는 점이다.
+//        무슨의미냐면 원본객체와 수정한 객체 두개가 있다는 점이다. 메모리 낭비
+//        크게 성능에 영향이있는지 여부는 직접 성능 테스트를 해봐야 알 수 있다.
+
+        //given
+        Member member1 = memberRepository.save(new Member("member1", 10));
+
+        em.flush();
+        em.clear();
+
+        //when
+//        Member findMember = memberRepository.findById(member1.getId()).get();
+//        아래코드는 읽기전용이되서 snapshot을 생성하지 않음 따라서 save되지않음 (조회전용)
+//        변경감지 적용X
+        Member findMember = memberRepository.findReadOnlyByUsername("member1");
+        findMember.setUsername("member2");
+
+        em.flush();
+    }
+
+    @Test
+    public void lock() {
+        //given
+        Member member1 = memberRepository.save(new Member("member1", 10));
+        em.flush();
+        em.clear();
+
+        //when
+        List<Member> result = memberRepository.findLockByUsername("member1");
+        em.flush();
+    }
+
 
 
 }

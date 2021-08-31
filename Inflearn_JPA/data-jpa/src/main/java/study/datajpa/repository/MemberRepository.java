@@ -3,14 +3,13 @@ package study.datajpa.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import study.datajpa.dto.MemberDto;
 import study.datajpa.entity.Member;
 
+import javax.persistence.LockModeType;
+import javax.persistence.QueryHint;
 import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
@@ -54,10 +53,10 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
 //    Slice<Member> findByAge(int age, Pageable pageable);
 
-//    paging에서 카운트 쿼리는 조인할필요가 없는데 조인을해서 성능이 저하된다.
+    //    paging에서 카운트 쿼리는 조인할필요가 없는데 조인을해서 성능이 저하된다.
 //    그리고 dto로 변환해야한다.
     @Query(value = "select m from Member m left join m.team t"
-                    ,countQuery = "select count(m.username) from Member m")
+            , countQuery = "select count(m.username) from Member m")
     Page<Member> findByAge(int age, Pageable pageable);
 
     //    bulkupdate jpa executeUpdate를 실행하기위해 @Modifying을 붙여준다.
@@ -65,7 +64,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("update Member m set m.age = m.age + 1 where m.age >= :age")
     int bulkAgePlus(@Param("age") int age);
 
-//    엔티티그래프는 아래와같은 반복해서 쓰게될 쿼리문을 줄여준다.
+    //    엔티티그래프는 아래와같은 반복해서 쓰게될 쿼리문을 줄여준다.
     @Query("select m from Member m left join fetch m.team")
     List<Member> findMemberFetchJoin();
 
@@ -74,13 +73,21 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @EntityGraph(attributePaths = {"team"})
     List<Member> findAll();
 
-//   응용해서 jpql에 entitygraph도 적용가능
+    //   응용해서 jpql에 entitygraph도 적용가능
     @EntityGraph(attributePaths = {"team"})
     @Query("select m from Member m")
     List<Member> findMemberEntityGraph();
 
-//    @EntityGraph(attributePaths = {"team"})
+    //    @EntityGraph(attributePaths = {"team"})
     @EntityGraph("Member.all")
     List<Member> findEntityGraphByUsername(@Param("username") String username);
 
+    // 아래코드는 읽기전용이되서 snapshot을 생성하지 않음 따라서 save되지않음 (조회전용)
+//    변경감지 적용X
+    @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
+    Member findReadOnlyByUsername(String username);
+
+//  Lock거는 것....실시간트래픽이 많은경우는 지양하는 경우
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    List<Member> findLockByUsername(String username);
 }
