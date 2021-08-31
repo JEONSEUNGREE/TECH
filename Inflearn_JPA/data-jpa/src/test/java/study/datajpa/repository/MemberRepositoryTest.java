@@ -229,6 +229,33 @@ class MemberRepositoryTest {
         assertThat(page.hasNext()).isTrue();
 //        다음페이지 여부
     }
+    @Test
+    public void bulkUpdate() {
+//        벌크수정의 경우 발생할수있는문제
+//        보통 영속성 컨텍스트 내에서 작동하는 일반 쿼리와 달리 update를 바로 db에 던진다. 그래서 문제가 발생할수있다.
+//
+        memberRepository.save(new Member("member1", 12));
+        memberRepository.save(new Member("member2", 12));
+        memberRepository.save(new Member("member3", 22));
+        memberRepository.save(new Member("member4", 25));
+        memberRepository.save(new Member("member5", 33));
+        memberRepository.save(new Member("member6", 40));
+
+        //when
+        int resultCount = memberRepository.bulkAgePlus(20);
+        em.clear();
+
+//        바로아래와같은 문제가 발생하는데 아래부분은 쿼리를 날라지않고 1차캐시에서 가져오는 더티체킹때문에
+//        나이가 40으로 찍힌다 하지만 실제 db는 41로 반영되있다. 따라서 벌크수정뒤에는 clear를 해줄필요가있다. clear는 영속성컨텍스트안에 데이터를 없앰
+//        혹은 modifying(clearAutomoatically = true)옵션을 적용
+//        jpql로 업데이트쿼리를하면 미리 flush가 작동한다.
+        List<Member> result = memberRepository.findByUsername("member6");
+        Member member = result.get(0);
+
+
+        //then
+        assertThat(resultCount).isEqualTo(4);
+    }
 
 
 
