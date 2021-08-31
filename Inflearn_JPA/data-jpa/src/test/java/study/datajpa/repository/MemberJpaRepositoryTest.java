@@ -8,6 +8,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 //위에것 임포트할것
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,4 +37,58 @@ class MemberJpaRepositoryTest {
         assertThat(findMember).isEqualTo(member);
     }
 
-}
+    @Test
+    public void findByUsernameAndAgeGreaterThen() {
+        Member m1 = new Member("AAA", 10);
+        Member m2 = new Member("AAA", 20);
+
+        jpaRepository.save(m1);
+        jpaRepository.save(m2);
+
+        List<Member> result = jpaRepository.findByUsernameAndAgeGreaterThen("AAA", 15);
+
+        assertThat(result.get(0).getUsername()).isEqualTo(m2.getUsername());
+        assertThat(result.get(0).getAge()).isEqualTo(20);
+        assertThat(result.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void testNamedQuery() {
+        Member m1 = new Member("AAA", 10);
+        Member m2 = new Member("BBB", 20);
+
+        jpaRepository.save(m1);
+        jpaRepository.save(m2);
+
+        List<Member> result = jpaRepository.findByUsername("AAA");
+        Member findMember = result.get(0);
+        assertThat(findMember).isEqualTo(m1);
+    }
+
+    @Test
+    public void paging() {
+        //given
+        jpaRepository.save(new Member("member1", 10));
+        jpaRepository.save(new Member("member2", 10));
+        jpaRepository.save(new Member("member3", 10));
+        jpaRepository.save(new Member("member4", 10));
+        jpaRepository.save(new Member("member5", 10));
+        jpaRepository.save(new Member("member6", 9));
+
+        int age = 10;
+        int offset = 0;
+        int limit = 3;
+
+        //when
+        List<Member> members = jpaRepository.findByPage(age, offset, limit);
+        long totalCount = jpaRepository.totalCount(age);
+
+        //then
+        assertThat(members.size()).isEqualTo(3);
+        assertThat(totalCount).isEqualTo(5);
+
+    }
+
+
+
+    }
