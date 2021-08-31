@@ -324,6 +324,13 @@ class MemberRepositoryTest {
         em.flush();
     }
 
+//    커스텀 레포 쓰면됨 레포가 지저분해지니깐 커스텀으로 뺴주면 좀더 깔끔한것같음(ex) queryDsl쓸때,jdbcTemplate,myBatis,entityManager...등등)
+//    항상필요한건 아닌데 핵심 비즈니스로직과 view에 fit하게 맞춘 (dto) 로직을 나누는건 확실히 좋다 이런 방면에서 사용한다면 좋은것같다.
+//    아니면 그냥 클래스로 레포를 하나 생성해도 된다.
+    @Test
+    public void findMemeberCustom() {
+        memberRepository.findMemberCustom();
+    }
 
 
 }
