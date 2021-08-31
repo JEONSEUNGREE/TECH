@@ -1,12 +1,12 @@
 package jpabook.jpashop.repository;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.BooleanOperation;
-import com.querydsl.jpa.impl.JPAQueryFactory;
+//import com.querydsl.core.types.dsl.BooleanExpression;
+//import com.querydsl.core.types.dsl.BooleanOperation;
+//import com.querydsl.jpa.impl.JPAQueryFactory;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderStatus;
-import jpabook.jpashop.domain.QMember;
-import jpabook.jpashop.domain.QOrder;
+//import jpabook.jpashop.domain.QMember;
+//import jpabook.jpashop.domain.QOrder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -98,39 +98,39 @@ public class OrderRepository {
         }
         return query.getResultList();
     }
-
-    public List<Order> findAllQueryDsl(OrderSearch orderSearch) {
-        QOrder order = QOrder.order;
-        QMember member = QMember.member;
-
-        JPAQueryFactory query = new JPAQueryFactory(em);
-
-
-        List<Order> result = query.select(order)
-                .from(order)
-                .join(order.member, member)
-//                and조건 , 앞 ,(and) 뒤
-                .where(statusEq(orderSearch.getOrderStatus()), nameLike(orderSearch.getMemberName()))
-                .limit(1000)
-                .fetch();
-
-        return result;
-    }
-
-    private BooleanExpression nameLike(String memberName) {
-        if (!StringUtils.hasText(memberName)) {
-            return null;
-        }
-        return QMember.member.name.like(memberName);
-    }
-
-    private BooleanExpression statusEq(OrderStatus statusCond) {
-//        주의 BooleanExpression 쿼리dsl ipmort
-        if (statusCond == null) {
-            return null;
-        }
-        return QOrder.order.status.eq(statusCond);
-    }
+//
+//    public List<Order> findAllQueryDsl(OrderSearch orderSearch) {
+//        QOrder order = QOrder.order;
+//        QMember member = QMember.member;
+//
+//        JPAQueryFactory query = new JPAQueryFactory(em);
+//
+//
+//        List<Order> result = query.select(order)
+//                .from(order)
+//                .join(order.member, member)
+////                and조건 , 앞 ,(and) 뒤
+//                .where(statusEq(orderSearch.getOrderStatus()), nameLike(orderSearch.getMemberName()))
+//                .limit(1000)
+//                .fetch();
+//
+//        return result;
+//    }
+//
+//    private BooleanExpression nameLike(String memberName) {
+//        if (!StringUtils.hasText(memberName)) {
+//            return null;
+//        }
+//        return QMember.member.name.like(memberName);
+//    }
+//
+//    private BooleanExpression statusEq(OrderStatus statusCond) {
+////        주의 BooleanExpression 쿼리dsl ipmort
+//        if (statusCond == null) {
+//            return null;
+//        }
+//        return QOrder.order.status.eq(statusCond);
+//    }
 
 //  재사용성은 v4보다 좋음 엔티티로 조회해서 성능은 낮음
     public List<Order> findAllWithMemberDelivery() {

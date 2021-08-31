@@ -9,7 +9,7 @@ plugins {
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
+//	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 //apply plugin: 'io.spring.dependency-management'
@@ -46,30 +46,30 @@ dependencies {
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5'
 
 	//querydsl 추가
-	implementation 'com.querydsl:querydsl-jpa'
+//	implementation 'com.querydsl:querydsl-jpa'
 	//querydsl 추가
-	implementation 'com.querydsl:querydsl-apt'
+//	implementation 'com.querydsl:querydsl-apt'
 
 }
 
-def querydslSrcDir = "$buildDir/generated/querydsl"
-
-querydsl {
-	jpa = true
-	querydslSourcesDir = querydslSrcDir
-}
-
-sourceSets {
-	main.java.srcDirs querydslSrcDir
-}
-
-configurations {
-	querydsl.extendsFrom compileClasspath
-}
-
-compileQuerydsl{
-	options.annotationProcessorPath = configurations.querydsl
-}
+//def querydslSrcDir = "$buildDir/generated/querydsl"
+//
+//querydsl {
+//	jpa = true
+//	querydslSourcesDir = querydslSrcDir
+//}
+//
+//sourceSets {
+//	main.java.srcDirs querydslSrcDir
+//}
+//
+//configurations {
+//	querydsl.extendsFrom compileClasspath
+//}
+//
+//compileQuerydsl{
+//	options.annotationProcessorPath = configurations.querydsl
+//}
 
 test {
 	useJUnitPlatform()
