@@ -90,4 +90,9 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberRep
 //  Lock거는 것....실시간트래픽이 많은경우는 지양하는 경우
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<Member> findLockByUsername(String username);
+
+    //    projection
+//    List<UsernameonlyDto> findProjectionsByUsername(@Param("username") String username);
+
+    <T>List<T> findProjectionsByUsername(@Param("username") String username, Class<T> type);
 }

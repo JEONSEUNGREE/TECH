@@ -356,5 +356,33 @@ class MemberRepositoryTest {
         System.out.println(memberResult.getLastModifiedBy());
     }
 
+    @Test
+    public void projections() throws Exception {
+        //given
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2", 0, teamA);
+        em.persist(m1);
+        em.persist(m2);
+
+        em.flush();
+        em.clear();
+        //when
+//        List<UsernameonlyDto> result = memberRepository.findProjectionsByUsername("m1");
+//        동적 프로젝션
+        List<NestedClosedProjections> result = memberRepository.findProjectionsByUsername("m1", NestedClosedProjections.class);
+//        참고로 프로젝션 대상이 엔티티면 selelct가 최적화되서 원하는 값만 찍어오지만 root가 아닌경우 left조인을 해버림 모든필드를 select해서 엔티티로 조회한다음 계산
+
+        //then
+//        assertThat(result.get(0).getUsername()).isEqualTo("m1");
+
+        for (NestedClosedProjections usernameOnly : result) {
+            System.out.println("usernameOnly : " + usernameOnly.getUsername());
+        }
+
+    }
+
 
 }
