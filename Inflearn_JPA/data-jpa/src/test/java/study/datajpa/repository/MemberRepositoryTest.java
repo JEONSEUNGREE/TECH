@@ -3,10 +3,7 @@ package study.datajpa.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.dto.MemberDto;
@@ -382,6 +379,42 @@ class MemberRepositoryTest {
             System.out.println("usernameOnly : " + usernameOnly.getUsername());
         }
 
+    }
+
+    @Test
+    public void queryByExample() {
+        //given
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+
+
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2", 0, teamA);
+        em.persist(m1);
+        em.persist(m2);
+
+        em.flush();
+        em.clear();
+
+        //when
+//        아래같이 세팅하면 inner조인까지는 정확하게 찍어서 쿼리를 날림
+        Member member = new Member("m1");
+        Team team = new Team("teamA");
+        member.setTeam(team);
+
+//      엔티티의 premitve타입은 0이기때문에 무시해야함
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("age");
+//      무시하기위한 세팅
+        Example<Member> example = Example.of(member, matcher);
+
+
+        List<Member> result = memberRepository.findAll(example);
+
+        assertThat(result.get(0).getUsername()).isEqualTo("m1");
+
+
+        //then
     }
 
 
