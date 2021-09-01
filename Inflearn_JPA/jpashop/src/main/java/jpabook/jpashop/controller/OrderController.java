@@ -36,18 +36,16 @@ public class OrderController {
     }
 
     @PostMapping("/order")
-    public String order(@RequestParam("memberId") Long memberId, @RequestParam Long itemId,
+    public String order(@RequestParam("memberId") Long memberId,
+                        @RequestParam("itemId") Long itemId,
                         @RequestParam("count") int count) {
 
         orderService.order(memberId, itemId, count);
-
         return "redirect:/orders";
     }
 
     @GetMapping("/orders")
     public String orderList(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {
-//        위의 ModelAttribut "orderSearch"는 아래의
-//        model.addAttribute("orderSearch", orderSearch);와 같다 볼수있다. 위와같이 작성하면 자동으로 model에 값을 바인딩해준다고 보면됨
         List<Order> orders = orderService.findOrders(orderSearch);
         model.addAttribute("orders", orders);
 

@@ -54,7 +54,7 @@ public class initDb {
         }
 
         public void dbInit2() {
-            Member member = createMember("userB", "서울", "구운동", "1111");
+            Member member = createMember("userB", "서울", "어딘가", "1111");
             em.persist(member);
 
             Book book1 = createBook("JPA1 BOOK", 10000, 100);

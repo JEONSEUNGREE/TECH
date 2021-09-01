@@ -1,6 +1,5 @@
 package jpabook.jpashop.repository;
 
-//import com.querydsl.core.annotations.QueryProjection;
 import jpabook.jpashop.domain.item.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

@@ -54,7 +54,7 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
-    //    @Transactional(readOnly = true)
+//        @Transactional(readOnly = true)
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
     }

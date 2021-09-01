@@ -53,7 +53,7 @@ public class OrderRepository {
     public List<Order> findAll(OrderSearch orderSearch) {
 //        Order와 연관된 멤버 조인 동적쿼리(파라미터 주는쿼리) 는 queryDSL로 권장..
 //         아래코드는 인제 파라미터값이 다 있다는 가정하에 작성된것
-        List<Order> query = em.createQuery("select o from Order o join o.member m" +
+        List<Order> query = em.createQuery("select o from Order o join o.member m " +
                         "where o.status = :status " + "and m.name like :name", Order.class)
                 .setParameter("status", orderSearch.getOrderStatus())
                 .setParameter("name", orderSearch.getMemberName())
