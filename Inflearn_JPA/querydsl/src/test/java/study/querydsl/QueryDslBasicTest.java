@@ -3,6 +3,8 @@ package study.querydsl;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.assertj.core.api.Assertions;
@@ -22,6 +24,7 @@ import javax.persistence.PersistenceUnit;
 
 import java.util.List;
 
+import static com.querydsl.jpa.JPAExpressions.*;
 import static org.assertj.core.api.Assertions.*;
 import static study.querydsl.entity.QMember.*;
 import static study.querydsl.entity.QTeam.*;
@@ -343,5 +346,111 @@ public class QueryDslBasicTest {
             
             //then
         }
+
+//        나이가 가장 많은 회원 조회
+//          서브쿼리
+        @Test
+        public void subQuery() throws Exception {
+            QMember memberSub = new QMember("MemberSub");
+
+            List<Member> result = queryFactory
+                    .selectFrom(member)
+                    .where(member.age.eq(
+//                            서브쿼리는 별칭이 달라야해서 새로 Qmember설정
+                            select(memberSub.age.max())
+                                    .from(memberSub)
+                    ))
+                    .fetch();
+
+            assertThat(result).extracting("age").containsExactly(40);
+        }
+
+        //        나이가 평균이상인 회원 조회
+        //          서브쿼리 goe
+        @Test
+        public void subQueryGoe() throws Exception {
+
+            QMember memberSub = new QMember("MemberSub");
+
+            List<Member> result = queryFactory
+                    .selectFrom(member)
+                    .where(member.age.goe(
+//                            서브쿼리는 별칭이 달라야해서 새로 Qmember설정
+                            select(memberSub.age.avg())
+                                    .from(memberSub)
+                    ))
+                    .fetch();
+
+            assertThat(result).extracting("age").containsExactly(30,40);
+        }
+
+        //        나이가 포함되있는는
+       //          서브쿼리 in
+        @Test
+        public void subQueryIn() throws Exception {
+
+            QMember memberSub = new QMember("MemberSub");
+
+            List<Member> result = queryFactory
+                    .selectFrom(member)
+                    .where(member.age.in(
+                            select(memberSub.age)
+                                    .from(memberSub)
+                                    .where(memberSub.age.gt(10))
+
+                    ))
+                    .fetch();
+
+            assertThat(result).extracting("age").containsExactly(20,30,40);
+        }
+
+//        select 서브쿼리 from절은 사용불가 웬만하면 join으로 해결하고 안되면 nativeSQL
+    @Test
+    public void selectSubQuery() {
+        QMember memberSub = new QMember("memberSub");
+        List<Tuple> result = queryFactory.
+                select(member.username,
+                        select(memberSub.age.avg())
+                                .from(memberSub))
+                .from(member)
+                .fetch();
+
+        for (Tuple tuple: result) {
+            System.out.println("tuple = " + tuple);
+
+        }
+    }
+//  case문 웬만하면 view쪽이나 로직으로 해결하는것으로 권장됨
+
+    @Test
+    public void basicCase() throws Exception {
+        List<String> result = queryFactory
+                .select(member.age
+                        .when(10).then("열살")
+                        .when(20).then("스무살")
+                        .otherwise("기타"))
+                .from(member)
+                .fetch();
+        for (String s : result) {
+            System.out.println("s = " + s);
+        }
+    }
+    @Test
+    public void complexCase() throws Exception {
+        List<String> result
+                = queryFactory
+                .select(new CaseBuilder()
+                        .when(member.age.between(0, 20)).then("0~20")
+                        .when(member.age.between(21, 30)).then("21~30")
+                        .otherwise("기타"))
+                .from(member)
+                .fetch();
+
+        for (String s : result) {
+            System.out.println("s = " + s);
+        }
+    }
+
+
 
 }
