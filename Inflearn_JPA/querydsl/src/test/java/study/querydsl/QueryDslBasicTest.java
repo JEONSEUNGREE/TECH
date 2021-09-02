@@ -674,4 +674,38 @@ public class QueryDslBasicTest {
         return usernameEq(useranmeCond).and(ageEq(ageCond));
     }
 
+//    벌크 단점 바로 commit되버리기때문에 1차캐시 남아있는 값과 db와 차이가 있다.
+//    다시 불러온다한들 중복이있으면 영속성컨텍스트를 우선시해서 db에서 가져온것을 버림.
+//    벌크는 쓰고 뒤에 변경로직을 최대한 추가하지 않도록 하거나 한번 flush,clear로 동기,초기화를 시켜준다.
+    @Test
+    public void bulkUpdate() {
+
+//            영향을 받을 row수가 나옴
+        long count = queryFactory
+                .update(member)
+                .set(member.username, "비회원")
+//                lt = 미만
+                .where(member.age.lt(28))
+                .execute();
+
+        assertThat(count).isEqualTo(2);
+    }
+//  (-1)add도가능,multiply등등
+    @Test
+    public void bulkAdd() {
+        queryFactory
+                .update(member)
+                .set(member.age, member.age.add(1))
+                .execute();
+    }
+
+    @Test
+    public void bulkDelete() throws Exception {
+        queryFactory
+                .delete(member)
+                .where(member.age.gt(18))
+                .execute();
+    }
+
+
 }
