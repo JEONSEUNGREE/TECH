@@ -450,7 +450,22 @@ public class QueryDslBasicTest {
             System.out.println("s = " + s);
         }
     }
+//  concat stringValue() 부분은 문자가아닌다른타입들을 처리해준다.(Enum등)
+    @Test
+    public void contcat() throws Exception {
+
+            //username_age
+        List<String> result = queryFactory.select(member.username.concat("_").concat(member.age.stringValue()))
+                .from(member)
+                .where(member.username.eq("member1"))
+                .fetch();
+
+        for (String s : result) {
+            System.out.println("s = " + s);
+
+        }
 
 
+    }
 
 }
