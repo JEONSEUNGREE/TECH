@@ -1,6 +1,7 @@
 package study.querydsl;
 
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import study.querydsl.dto.MemberDto;
+import study.querydsl.dto.QMemberDto;
 import study.querydsl.dto.UserDto;
 import study.querydsl.entity.Member;
 import study.querydsl.entity.QMember;
@@ -589,6 +591,50 @@ public class QueryDslBasicTest {
 //                    )
 //            ).from(member)
 //            .fetch();
+
+//    장점 @QueryProjection은 컴파일오류가 잡히고 constructor는 런타임오류가남
+//    단점 QueryDsl에 의존적
+    @Test
+    public void fidDtoByQueryProjection() throws Exception {
+        List<MemberDto> result = queryFactory
+                .select(new QMemberDto(member.username, member.age))
+                .from(member)
+                .fetch();
+
+        for (MemberDto memberDto : result) {
+            System.out.println("result = " + memberDto);
+
+        }
+    }
+
+//    BooleanBuilder를 이용한 동적 쿼리작성
+//    예전 String query에 비하면 가독성,코드 효율상승
+    @Test
+    public void dynamicQuery_BooleanBuilder() throws Exception {
+        String usernameParm = "member1";
+        Integer ageParam = 10;
+
+        List<Member> result = searchMember1(usernameParm, ageParam);
+
+        assertThat(result.size()).isEqualTo(1);
+    }
+
+
+    private List<Member> searchMember1(String usernameCond, Integer ageCond) {
+
+        BooleanBuilder builder = new BooleanBuilder();
+        if (usernameCond != null) {
+            builder.and(member.username.eq(usernameCond));
+        }
+        if (ageCond != null) {
+            builder.and(member.age.eq(ageCond));
+        }
+
+        return queryFactory
+                .selectFrom(member)
+                .where(builder)
+                .fetch();
+    }
 
 
 }
