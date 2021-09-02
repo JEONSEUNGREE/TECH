@@ -468,4 +468,41 @@ public class QueryDslBasicTest {
 
     }
 
+//    프로젝션 하나인경우 셀렉, 여러개 튜플 또는 DTO
+
+    @Test
+    public void simpleProjection() throws Exception {
+
+        List<String> result = queryFactory
+                .select(member.username)
+                .from(member)
+                .fetch();
+        for (String s : result) {
+            System.out.println("s = " + s);
+        }
+
+    }
+
+//    튜플은 쿼리DSL것이다. jdbc를 쓸떄도 레포지토리 안에서나 dao쪽에서만 사용하고 나머지 계층에는 의존이 안생겨서 수정시 편하도록 하는게 좋은 설계였다.
+//    마찬가지로 튜플도 레포지토리안에서만 쓸수있도록하고 나갈때는 dto로 바꿔야한다.
+    @Test
+    public void tupleProjection() throws Exception {
+        List<Tuple> result = queryFactory
+                .select(member.username, member.age)
+                .from(member)
+                .fetch();
+
+        for (Tuple tuple : result) {
+            String username = tuple.get(member.username);
+            Integer age = tuple.get(member.age);
+            System.out.println("username = " + username);
+            System.out.println("age = " + age);
+
+        }
+
+
+    }
+
+
+
 }
