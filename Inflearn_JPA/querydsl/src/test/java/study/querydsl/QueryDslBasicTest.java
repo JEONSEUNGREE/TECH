@@ -4,7 +4,9 @@ package study.querydsl;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -636,5 +638,40 @@ public class QueryDslBasicTest {
                 .fetch();
     }
 
+//    Booleanbuild보다 깔끔함
+    @Test
+    public void dynamicQuery_WhereParam() throws Exception {
+        String usernameParm = "member1";
+        Integer ageParam = 10;
+
+        List<Member> result = searchMember2(usernameParm, ageParam);
+
+        assertThat(result.size()).isEqualTo(1);
+    }
+
+    private List<Member> searchMember2(String usernameCond, Integer ageCond) {
+        return queryFactory
+                .selectFrom(member)
+//                .where(usernameEq(usernameCond), ageEq(ageCond))
+
+//                아래는 한번더 감싼것 위는 나눈것것
+               .where(allEq(usernameCond,ageCond))
+                .fetch();
+    }
+//  조립하려면 Predicate 말고 BooleanExpression
+    private BooleanExpression ageEq(Integer ageCond) {
+        return ageCond == null ? member.age.eq(ageCond) : null;
+    }
+
+    private BooleanExpression usernameEq(String usernameCond) {
+        if (usernameCond == null) {
+            return null;
+        }
+        return member.username.eq(usernameCond);
+    }
+
+    private BooleanExpression allEq(String useranmeCond, Integer ageCond) {
+        return usernameEq(useranmeCond).and(ageEq(ageCond));
+    }
 
 }
