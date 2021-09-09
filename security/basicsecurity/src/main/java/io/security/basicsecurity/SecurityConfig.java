@@ -9,10 +9,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Configuration //설정하기위한 어노테이션
@@ -57,5 +60,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .permitAll();
 //                loginPage("/loginPage") 이부분은 로그인하기위한 페이지이기때문에 접근이 가능하도록 해야해서 permitall로 둔다.
+
+        http
+                .logout()
+                .logoutUrl("logout")
+//                원칙적으로는 로그아웃은 스프링시큐리티가 post방식으로 한다 하지만 get방식으로도 설정할수있음(추후)
+                .logoutSuccessUrl("/login")
+//                로그아웃성공시 /login이동
+                .addLogoutHandler(new LogoutHandler() {
+                    @Override
+                    public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+                        HttpSession session = request.getSession();
+                        session.invalidate();
+//                        세션 무효화 작업
+                    }
+                })
+                .logoutSuccessHandler(new LogoutSuccessHandler() {
+                    @Override
+                    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                        response.sendRedirect("/login");
+//                logoutSuccessUrl과 다른점은 logoutSuccessHandler와 다르게 다양한 로직 구성가능
+//                logoutSuccessUrl은 단지 url이동만 가능
+                    }
+                })
+//                remember-me인증시 서버에서 쿠키발급 따라서 로그아웃시 삭제해야함
+                .deleteCookies("remember-me")
+                ;
     }
 }
