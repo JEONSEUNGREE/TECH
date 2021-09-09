@@ -104,6 +104,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                리멤버처리시 유저계정을 조회하는데 필요한 클래스
                 .userDetailsService(userDetailsService);
 
+        http
+                .sessionManagement()
+                .sessionFixation().none()
+//                .sessionCreationPolicy() 세션정책
+//        SessionCreationPolicy. Always 		:  스프링 시큐리티가 항상 세션 생성
+//        SessionCreationPolicy. If_Required 		:  스프링 시큐리티가 필요 시 생성(기본값)
+//        SessionCreationPolicy. Never   		:  스프링 시큐리티가 생성하지 않지만 이미 존재하면 사용
+//        SessionCreationPolicy. Stateless	 	:  스프링 시큐리티가 생성하지 않고 존재해도 사용하지 않음 (예를들어 jwt쓸때)
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false);
+
+
+
 
     }
 }
