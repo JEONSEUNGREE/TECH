@@ -1,12 +1,15 @@
 package io.security.basicsecurity;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -24,8 +27,14 @@ import java.io.IOException;
 //		HttpSecurityConfiguration.class }) 다음과같은 클래스들이 임폿되있음
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    UserDetailsService userDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+
+
 //        스프링시큐리티가 초기화해주는것과 유사하게 일단 작성
         http
                 .authorizeRequests()
@@ -84,7 +93,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     }
                 })
 //                remember-me인증시 서버에서 쿠키발급 따라서 로그아웃시 삭제해야함
-                .deleteCookies("remember-me")
-                ;
+//                .deleteCookies("remember-me");
+                .and()
+                //                리멤버미 설정
+                .rememberMe()
+                .rememberMeParameter("remember")
+//                default는 remember-me이고 파라미터를 위와같이 변경할수있다.
+//                토큰의 기본시간은 14일이고 초단위로 재설정할수있다.
+                .tokenValiditySeconds(3600)
+//                리멤버처리시 유저계정을 조회하는데 필요한 클래스
+                .userDetailsService(userDetailsService);
+
+
     }
 }
