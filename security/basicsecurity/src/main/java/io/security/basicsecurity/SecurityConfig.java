@@ -3,6 +3,7 @@ package io.security.basicsecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -30,15 +31,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
 
+//    AuthenticationManagerBuilder클래스는 사용자를 생성하고 권한을 부여할수있도록 한다.
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//              {noop} 패스워드암호화시 스프링시큐리티5버전부터 암호화방식(free fix)정해야한다. 나중에검사시 방식을통해서 검사하기때문에
+//               적용하지않는경우 아이디가 null로 나옴
+        auth.inMemoryAuthentication().withUser("user").password("{noop}1234").roles("USER"); //- 메모리방식
+        auth.inMemoryAuthentication().withUser("sys").password("{noop}1234").roles("SYS","USER"); //- 메모리방식
+        auth.inMemoryAuthentication().withUser("admin").password("{noop}1234").roles("ADMIN","SYS","USER"); //- 메모리방식
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-
 
 //        스프링시큐리티가 초기화해주는것과 유사하게 일단 작성
         http
                 .authorizeRequests()
 //                요청에대한 보안검사상태 어떠한 요청에도 인증을받도록 설정 (인가 정책)
+                .antMatchers("/user").hasRole("USER")
+                .antMatchers("/admin/pay").hasRole("ADMIN") //admin/pay가 admin/**위에있으면 sys가 접근이 불가하지만
+                                                                        // 위치가 바뀌면 sys도 접근한다 위에가 더 넓어 밑에를 포함해버리기때문에
+                                                                        // 그래서 구체적인 url이 앞에 나와야한다.
+                .antMatchers("/admin/**").access("hasRole('ADMIN') or hasRole('SYS')")
                 .anyRequest().authenticated();
 
         http
