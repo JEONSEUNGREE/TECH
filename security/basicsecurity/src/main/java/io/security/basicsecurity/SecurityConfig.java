@@ -161,6 +161,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         response.sendRedirect("/denied");
                     }
                 });
+//        CSRF는 기본으로 시큐리티가 설정해주기떄문에 설정하지않아도 default로 설정되있음
+//        CsrfToken을 자동으로 확인
+//        http .csrf();
 
 
     }
