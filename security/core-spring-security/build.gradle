@@ -29,6 +29,11 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
 //	스프링부트 시큐리티
 	implementation 'org.springframework.boot:spring-boot-starter-security:2.5.4'
+// 모델맵퍼 jpa 사용시 dto관련 편의 라이브러리같은데 아직 감이안잡힘
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+
+	implementation 'org.springframework.boot:spring-boot-devtools'
+
 }
 
 test {

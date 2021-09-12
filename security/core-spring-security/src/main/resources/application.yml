@@ -4,9 +4,29 @@ spring:
 #      name: user
 #      password: 1111
 #      ??? ?????? ???
+  thymeleaf:
+    cache: false
   profiles:
   datasource:
     url: jdbc:h2:tcp://localhost/~/basicsecurity
     username: sa
     password:
     driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        #      show_sql: true
+        format_sql: true
+        #        미리 db에서 사이즈만큼 값을 가져온다.  N + 1 문제 해결
+        default_batch_fetch_size: 100
+    #        OSIV 옵션 디폴트값 disable
+    open-in-view: false
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+# org.hibernate.type: trace
