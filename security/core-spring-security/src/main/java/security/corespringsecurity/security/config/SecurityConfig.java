@@ -1,9 +1,11 @@
 package security.corespringsecurity.security.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -27,6 +29,8 @@ import security.corespringsecurity.security.provider.CustomAuthenticationProvide
 
 @Configuration
 @EnableWebSecurity
+@Order(1)
+@Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -42,10 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -64,16 +64,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-//   Ajax용 필터
-//    매니저빈 생성해서 주입후 리턴
-//    현재 csrf가 활성화 되어있기때문에
-//    포스트 방식으로 요청시 반드시 csrf토큰을 가지고 가야한다.
-    @Bean
-    public AjaxLoginProcessingFilter ajaxLoginProcessingFilter() throws Exception {
-        AjaxLoginProcessingFilter ajaxLoginProcessingFilter = new AjaxLoginProcessingFilter();
-        ajaxLoginProcessingFilter.setAuthenticationManager(authenticationManagerBean());
-        return ajaxLoginProcessingFilter;
-    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -109,13 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler())
-//                ajax 필터 요청
-                .and()
-                .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
-//                addFilterBefore 추가하고자하는 필터가 기존필터앞쪽에 위치
-//                addFilter     필터 맨마지막에 위치
-//                addFilterAfter 기존필터 뒤쪽에
-//                addFilterAt 기존필터 위치를 대체하고자 할때
+
         ;
     }
 

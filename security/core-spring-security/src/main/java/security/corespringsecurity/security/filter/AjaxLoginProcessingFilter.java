@@ -34,8 +34,9 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
 //        json형식으로 받은 값을 AccountDto로 받는다.
         AccountDto accountDto = objectMapper.readValue(request.getReader(), AccountDto.class);
 
+
 //        null 예외처리
-        if (StringUtils.hasText(accountDto.getUsername()) || StringUtils.hasText(accountDto.getPassword())) {
+        if (!StringUtils.hasText(accountDto.getUsername()) || !StringUtils.hasLength(accountDto.getPassword())) {
             throw new IllegalArgumentException("Username or Password is empty");
         }
 //      첫번째 생성자(인증받기위한 객체)
