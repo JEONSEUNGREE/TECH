@@ -14,6 +14,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import security.corespringsecurity.security.common.FormAuthenticationDetailsSource;
+import security.corespringsecurity.security.handler.CustomAccessDeniedHandler;
+import security.corespringsecurity.security.handler.CustomAuthenticationSuccessHandler;
 import security.corespringsecurity.security.provider.CustomAuthenticationProvider;
 
 @Configuration
@@ -22,7 +28,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    private AuthenticationDetailsSource authenticationDetailsSource;
+    private AuthenticationFailureHandler customAuthenticationFailureHandler;
+
+    @Autowired
+    private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
+    @Autowired
+    private FormAuthenticationDetailsSource authenticationDetailsSource;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -54,13 +66,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/users", "user/login/**").permitAll()
+                .antMatchers("/", "/users", "user/login/**", "/login*").permitAll()
                 .antMatchers("/mypage").hasRole("USER")
                 .antMatchers("/messages").hasRole("MANAGER")
                 .antMatchers("/config").hasRole("ADMIN")
                 .anyRequest().authenticated()
 
-                .and()
+        .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login_proc")
@@ -69,9 +81,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                로그인페이지 아래 부분
 //                <form th:action="@{/login_proc}" class="form-signin" method="post">
                 .defaultSuccessUrl("/")
+//                custom한 요청url작업
+                .successHandler(customAuthenticationSuccessHandler)
+//                실패 핸들러
+                .failureHandler(customAuthenticationFailureHandler)
                 .permitAll()
+
+        .and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler())
         ;
 
 
+    }
+
+//    에러 경로 설정
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
+
+        accessDeniedHandler.setErrorPage("/denied");
+
+        return accessDeniedHandler;
     }
 }
