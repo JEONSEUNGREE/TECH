@@ -32,7 +32,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 //        비밀번호 검사
 //        사용자로부터 입력받은 authentication 정보와 AccountContext객체가 일치하는지 여부 확인
-        if (passwordEncoder.matches(password, accountContext.getAccount().getPassword())) {
+        if (!passwordEncoder.matches(password, accountContext.getAccount().getPassword())) {
+            System.out.println("비번 노일치");
             throw new BadCredentialsException("BadCredentialException");
         }
 

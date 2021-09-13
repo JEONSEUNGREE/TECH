@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 //    데이터 계층으로부터 유저 객체를 얻어와서 직접 권한을 부여하고 반환하도록 구현함
         Account account = userRepository.findByUsername(username);
 
-        if (account == null) {
+        if (account.equals(null)) {
             throw new UsernameNotFoundException("UsernameNotFoundException");
         }
 
