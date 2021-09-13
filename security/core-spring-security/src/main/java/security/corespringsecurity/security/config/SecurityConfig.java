@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,16 +20,9 @@ import security.corespringsecurity.security.provider.CustomAuthenticationProvide
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//
-//        String password = passwordEncoder().encode("1111");
-//
-//        auth.inMemoryAuthentication().withUser("user").password(password).roles("USER");
-//        auth.inMemoryAuthentication().withUser("manager").password(password).roles("MANAGER");
-//        auth.inMemoryAuthentication().withUser("admin").password(password).roles("ADMIN");
-//    }
 
+    @Autowired
+    private AuthenticationDetailsSource authenticationDetailsSource;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -66,10 +60,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/config").hasRole("ADMIN")
                 .anyRequest().authenticated()
 
-        .and()
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login_proc")
+//                추가파라미터를 받기위한 url
+                .authenticationDetailsSource(authenticationDetailsSource)
 //                로그인페이지 아래 부분
 //                <form th:action="@{/login_proc}" class="form-signin" method="post">
                 .defaultSuccessUrl("/")

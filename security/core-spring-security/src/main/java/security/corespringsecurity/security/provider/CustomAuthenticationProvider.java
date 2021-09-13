@@ -3,12 +3,14 @@ package security.corespringsecurity.security.provider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import security.corespringsecurity.security.common.FormWebAuthenticationDetails;
 import security.corespringsecurity.security.service.AccountContext;
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -35,6 +37,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (!passwordEncoder.matches(password, accountContext.getAccount().getPassword())) {
             System.out.println("비번 노일치");
             throw new BadCredentialsException("BadCredentialException");
+        }
+//        추가 파라미터인 Secret_key인증
+        FormWebAuthenticationDetails formWebAuthenticationDetails = (FormWebAuthenticationDetails) authentication.getDetails();
+        String secretKey = formWebAuthenticationDetails.getSecretKey();
+
+        if (secretKey.equals(null) || !"secret".equals(secretKey)) {
+            System.out.println("시크릿키 불일치");
+            throw new InsufficientAuthenticationException("InsufficientAuthenticationException");
         }
 
 //        인증객체 생성
