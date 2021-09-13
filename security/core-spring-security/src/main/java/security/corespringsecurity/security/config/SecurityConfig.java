@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/","/users","user/login/**").permitAll()
+                .antMatchers("/", "/users", "user/login/**").permitAll()
                 .antMatchers("/mypage").hasRole("USER")
                 .antMatchers("/messages").hasRole("MANAGER")
                 .antMatchers("/config").hasRole("ADMIN")
@@ -68,6 +68,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login_proc")
+//                로그인페이지 아래 부분
+//                <form th:action="@{/login_proc}" class="form-signin" method="post">
+                .defaultSuccessUrl("/")
+                .permitAll()
         ;
 
 
