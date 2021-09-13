@@ -33,6 +33,7 @@ dependencies {
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
 
 	implementation 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
 }
 
