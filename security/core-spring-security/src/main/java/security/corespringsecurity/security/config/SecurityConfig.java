@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.vote.AffirmativeBased;
+import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -18,6 +22,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -25,7 +31,12 @@ import security.corespringsecurity.security.common.FormAuthenticationDetailsSour
 import security.corespringsecurity.security.filter.AjaxLoginProcessingFilter;
 import security.corespringsecurity.security.handler.CustomAccessDeniedHandler;
 import security.corespringsecurity.security.handler.CustomAuthenticationSuccessHandler;
+import security.corespringsecurity.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import security.corespringsecurity.security.provider.CustomAuthenticationProvider;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -100,6 +111,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler())
 
+                .and()
+                .addFilterBefore(customFilterSecurityInterceptor(), FilterSecurityInterceptor.class)
+
         ;
     }
 
@@ -111,5 +125,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         accessDeniedHandler.setErrorPage("/denied");
 
         return accessDeniedHandler;
+    }
+
+    @Bean
+    public FilterSecurityInterceptor customFilterSecurityInterceptor() throws Exception {
+
+        FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
+        filterSecurityInterceptor.setSecurityMetadataSource(urlFilterInvocationSecurityMetadatasource());
+        filterSecurityInterceptor.setAccessDecisionManager(affirmativeBased());
+        filterSecurityInterceptor.setAuthenticationManager(authenticationManager());
+        return filterSecurityInterceptor;
+
+    }
+
+    @Bean
+    public AccessDecisionManager affirmativeBased() {
+        AffirmativeBased affirmativeBased = new AffirmativeBased(getAccessDecistionVoter());
+        return affirmativeBased;
+    }
+
+    private List<AccessDecisionVoter<?>> getAccessDecistionVoter() {
+        return Arrays.asList(new RoleVoter());
+    }
+
+    @Bean
+    public FilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadatasource() {
+        return new UrlFilterInvocationSecurityMetadataSource();
     }
 }

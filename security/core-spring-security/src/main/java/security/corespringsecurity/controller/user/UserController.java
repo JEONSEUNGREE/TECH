@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping(value = "/mypage")
     public String myPage() throws Exception {
-        return "mypage";
+        return "/user/mypage";
     }
 
     @GetMapping("/users")
