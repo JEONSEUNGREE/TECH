@@ -18,6 +18,7 @@ import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,6 +32,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import security.corespringsecurity.repository.AccessIpRepository;
 import security.corespringsecurity.security.common.FormAuthenticationDetailsSource;
 import security.corespringsecurity.security.factory.UrlResourcesMapFactoryBean;
 import security.corespringsecurity.security.filter.AjaxLoginProcessingFilter;
@@ -40,6 +42,7 @@ import security.corespringsecurity.security.handler.CustomAuthenticationSuccessH
 import security.corespringsecurity.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import security.corespringsecurity.security.provider.CustomAuthenticationProvider;
 import security.corespringsecurity.security.service.RoleHierarchyServiceImpl;
+import security.corespringsecurity.security.voter.IpAddressVoter;
 import security.corespringsecurity.service.SecurityResourceService;
 
 import java.lang.reflect.Array;
@@ -49,6 +52,8 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+// 메서드 방식 권한설정을하기위한 설정
+@EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true)
 @Order(1)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -68,6 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private SecurityResourceService securityResourceService;
+
 
     private String[] permitAllResources = {"/", "/login", "/user/login/**"};
 
@@ -160,6 +166,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private List<AccessDecisionVoter<?>> getAccessDecistionVoter() {
 
         List<AccessDecisionVoter<? extends Object>> accessDecisionVoters = new ArrayList<>();
+//        Ip먼저 심사하도록 설정
+        accessDecisionVoters.add(new IpAddressVoter(securityResourceService));
         accessDecisionVoters.add(roleVoter());
 
         return accessDecisionVoters;
