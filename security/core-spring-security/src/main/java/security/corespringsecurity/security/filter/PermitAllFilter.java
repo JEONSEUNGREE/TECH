@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+// 기존에 인증또는 권한심사를 할필요가 없는 자원에 접근시 불필요한 권한심사가 이루어졌는데
+// 이부분을 PermitAllFilter(FilterSecurityInterceptor를 상속해서)통해 AbstractSecurityINterceptor까지 않도록 하는것
+// FilterSecrutiryInterceptor -> AbstractSecurityInterceptor -> List<ConfigAttribute> -> AccessDecisionManager
+// PermitAllFilter -> List<RequestMatcher> -> request
 public class PermitAllFilter extends FilterSecurityInterceptor {
     private static final String FILTER_APPLIED = "__spring_security_filterSecurityInterceptor_filterApplied";
 
