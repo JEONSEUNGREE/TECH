@@ -9,7 +9,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.access.vote.AffirmativeBased;
+import org.springframework.security.access.vote.RoleHierarchyVoter;
 import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,9 +39,11 @@ import security.corespringsecurity.security.handler.CustomAccessDeniedHandler;
 import security.corespringsecurity.security.handler.CustomAuthenticationSuccessHandler;
 import security.corespringsecurity.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import security.corespringsecurity.security.provider.CustomAuthenticationProvider;
+import security.corespringsecurity.security.service.RoleHierarchyServiceImpl;
 import security.corespringsecurity.service.SecurityResourceService;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -153,10 +158,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private List<AccessDecisionVoter<?>> getAccessDecistionVoter() {
-        return Arrays.asList(new RoleVoter());
+
+        List<AccessDecisionVoter<? extends Object>> accessDecisionVoters = new ArrayList<>();
+        accessDecisionVoters.add(roleVoter());
+
+        return accessDecisionVoters;
     }
 
-//    생성한 db연동을 위해 맵핑을한다.
+    @Bean
+    public AccessDecisionVoter<? extends Object> roleVoter() {
+
+        RoleHierarchyVoter roleHierarchyVoter = new RoleHierarchyVoter(roleHirerarchy());
+
+        return roleHierarchyVoter;
+    }
+
+    @Bean
+    public RoleHierarchyImpl roleHirerarchy() {
+
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+
+        return roleHierarchy;
+    }
+
+
+    //    생성한 db연동을 위해 맵핑을한다.
     @Bean
     public FilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadatasource() throws Exception {
         return new UrlFilterInvocationSecurityMetadataSource(urlResourcesMapFactoryBean().getObject(), securityResourceService);
