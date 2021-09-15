@@ -14,7 +14,7 @@ public class AopSecurityDController {
 
     @GetMapping("/preAuthorize")
 //    principal 인증된사용자의 인증객체 받기위함
-//    home.html에서 preAtuorize에 username='user'로 설정했기때문에 일치여부를 확인한다.
+//    home.html에서 preAtuorize에 username='user'로 설정했기때문에 파라미터는 user고 이부분의 일치여부를 확인한다.
 //    url방식에서는 따로 인가처리를 하지않아서 null이라 통과된다.(AbstractSecurityInterceptor클래스 - attributes == null)
 //    또한 인증없이 로그인하면 ROLE_USER는 false account.username도 null principal.username도 null이어서 false인데 통과가된다.
 //    @EnableGlobalMethodSecurity의 속성이 활성화되지않아서 그렇다. 이부분을 활성화해주자.
