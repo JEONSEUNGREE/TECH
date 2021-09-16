@@ -1,6 +1,7 @@
 package security.corespringsecurity.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import security.corespringsecurity.domain.Account;
@@ -19,5 +20,11 @@ public class UserServiceImpl implements UserService {
     public void createUser(Account account) {
 
         userRepository.save(account);
+    }
+
+    @Override
+    @Secured("ROLE_MANAGER")
+    public void order() {
+        System.out.println("order");
     }
 }
