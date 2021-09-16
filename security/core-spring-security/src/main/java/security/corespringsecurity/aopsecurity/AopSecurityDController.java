@@ -1,6 +1,7 @@
 package security.corespringsecurity.aopsecurity;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,9 @@ import java.security.Principal;
 @Controller
 public class AopSecurityDController {
 
+    @Autowired
+    private AopMethodService aopMethodService;
+
     @GetMapping("/preAuthorize")
 //    principal 인증된사용자의 인증객체 받기위함
 //    home.html에서 preAtuorize에 username='user'로 설정했기때문에 파라미터는 user고 이부분의 일치여부를 확인한다.
@@ -22,6 +26,14 @@ public class AopSecurityDController {
     public String preAuthorize(AccountDto accountDto, Model model, Principal principal) {
 
         model.addAttribute("method", "Success @PreAuthorize");
+
+        return "aop/method";
+    }
+
+    @GetMapping("/methodSecured")
+    public String methodSecured(Model model) {
+        aopMethodService.methodSecured();
+        model.addAttribute("method", "Success MethodSecured");
 
         return "aop/method";
     }

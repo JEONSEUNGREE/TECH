@@ -38,8 +38,23 @@ public class SecurityResourceService {
         });
         return result;
     }
+    public LinkedHashMap<String, List<ConfigAttribute>> getMethodResourceList() {
 
-    public List<String> getAccesIpList() {
+        LinkedHashMap<String, List<ConfigAttribute>> result = new LinkedHashMap<>();
+        List<Resources> resourceList = resourcesRepository.findAllMethodResources();
+//      url과 매우 유사하다.
+        resourceList.forEach(resources -> {
+            List<ConfigAttribute> configAttributes = new ArrayList<>();
+            resources.getRoleSet().forEach(role -> {
+                configAttributes.add(new SecurityConfig(role.getRoleName()));
+            });
+            result.put(resources.getResourceName(), configAttributes);
+        });
+        return result;
+    }
+
+
+        public List<String> getAccesIpList() {
         List<String> accessIpList = accessIpRepository.findAll().stream().map(accessIp -> accessIp.getIpAddress()).collect(Collectors.toList());
 
         return accessIpList;

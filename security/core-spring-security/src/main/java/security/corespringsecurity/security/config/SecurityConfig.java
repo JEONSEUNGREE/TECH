@@ -53,7 +53,6 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 // 메서드 방식 권한설정을하기위한 설정
-@EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true)
 @Order(1)
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
