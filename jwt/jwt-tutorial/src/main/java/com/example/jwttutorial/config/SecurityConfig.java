@@ -1,35 +1,86 @@
 package com.example.jwttutorial.config;
 
-
+import com.example.jwttutorial.jwt.JwtSecurityConfig;
+import com.example.jwttutorial.jwt.JwtAccessDeniedHandler;
+import com.example.jwttutorial.jwt.JwtAuthenticationEntryPoint;
+import com.example.jwttutorial.jwt.TokenProvider;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
+//  method단위 권한설정(prePostEnabled로 설정 - 어노테이션방식)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final TokenProvider tokenProvider;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
+//    생성한 필터,토큰들 주입
+    public SecurityConfig(
+            TokenProvider tokenProvider,
+            JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
+            JwtAccessDeniedHandler jwtAccessDeniedHandler
+    ) {
+        this.tokenProvider = tokenProvider;
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+        this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
+    public void configure(WebSecurity web) {
+        web.ignoring()
                 .antMatchers(
-//                        sql문에 자동등록할때 안걸리게
                         "/h2-console/**"
-                        , "/favicon.ico"
+                        ,"/favicon.ico"
+                        ,"/error"
                 );
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                // token을 사용하는 방식이기 때문에 csrf를 disable합니다.
+                .csrf().disable()
+
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
+
+                // enable h2-console
+                .and()
+                .headers()
+                .frameOptions()
+                .sameOrigin()
+
+                // 세션을 사용하지 않기 때문에 STATELESS로 설정
+                .and()
+                .sessionManagement()
+//                세션 사용하지않기 때문에 STATLESS
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+                .and()
                 .authorizeRequests()
-//                http 서블릿 리퀘스트를 사용하는 요청들의 경우 접근 제한을 설정하겠다.
+//                가입 부분은 열어두기
                 .antMatchers("/api/hello").permitAll()
-                .anyRequest().authenticated();
-//                antMatcher부분만 허용한하고 다른부분의 경우 제한
+                .antMatchers("/api/authenticate").permitAll()
+                .antMatchers("/api/signup").permitAll()
+                .anyRequest().authenticated()
 
-
-
+                .and()
+                .apply(new JwtSecurityConfig(tokenProvider));
     }
 }
