@@ -1,5 +1,4 @@
 sentence = "나는 소년이다."
-
 print(sentence)
 
 # 줄바꿈

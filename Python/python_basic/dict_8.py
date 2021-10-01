@@ -15,6 +15,5 @@ print(5 in cabinet)
 # 중복키값의 경우 밸류 업데이트
 cabinet[3] = "바보"
 print(cabinet)
-
 # 1. 키 값만 출력 2. 밸류값만 출력 3. 비우기
 # 1. cabinet.keys() 2. cabinet.values 3. cabinet.clear
