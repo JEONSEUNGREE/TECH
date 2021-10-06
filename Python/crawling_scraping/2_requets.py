@@ -4,7 +4,6 @@ import requests
 res = requests.get("http://google.com")
 print("응답코드 : ", res.status_code)
 res.raise_for_status() # 웹스크래핑하기위해 html문서를 가져오지못한경우 에러를 발생시키고 프로그램종료
-
 print(len(res.text))
 print(res.text)
 
