@@ -24,3 +24,5 @@ browser.quit()
 
 # 추가적으로 공식문서
 # https://selenium-python.readthedocs.io/
+
+# 도메인마다 robots.txt를 쳐서 보자
