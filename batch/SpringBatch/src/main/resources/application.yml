@@ -26,7 +26,6 @@ spring:
     url: jdbc:mysql://localhost:3306/springbatch?serverTimezone=UTC&useSSL=false
     username: khweb
     password: khweb@123
-    driver-class-name: com.mysql.jdbc.Driver
   batch:
     jdbc:
       initialize-schema: always
