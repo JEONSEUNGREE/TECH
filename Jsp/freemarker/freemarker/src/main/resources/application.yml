@@ -1,0 +1,20 @@
+server:
+  port: 7777
+spring:
+  devtools:
+    livereload:
+      enabled: true
+#  jsp ??
+#  prefix : controller?? retrun ?? jsp?? ???? ??
+#  suffix : ??? ??
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  jpa:
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+
+#      freemarker templates ??? sping.freemaker.cache false? ????
