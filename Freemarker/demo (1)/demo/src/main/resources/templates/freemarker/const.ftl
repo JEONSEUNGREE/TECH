@@ -8,3 +8,8 @@
 <#assign h2Link="https://www.h2database.com/html/main.html"/>
 <#assign jpaLink="https://spring.io/projects/spring-data-jpa"/>
 
+<#assign API_BASEURI="http://localhost:7777" />
+<#assign board="board" />
+<#assign boardPost="postForm" />
+
+<#assign boardFooter="copyright 1988.01.22"/>

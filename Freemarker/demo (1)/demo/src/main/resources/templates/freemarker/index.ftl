@@ -1,3 +1,3 @@
 <div class="index">
-    <#include "header.ftl"/>
+    <#include "main.ftl"/>
 </div>

@@ -1,0 +1,20 @@
+<div class="board">
+    <table>
+        <thead>
+            <tr>
+                <th>번호</th>
+            </tr>
+            <tr>
+                <th>제목</th>
+            </tr>
+            <tr>
+                <th>타이틀</th>
+            </tr>
+        </thead>
+        <tbody>
+            <td>${board.id}</td>
+            <td>${board.title}</td>
+            <td>${board.contents}</td>
+        </tbody>
+    </table>
+</div>

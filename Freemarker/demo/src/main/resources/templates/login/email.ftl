@@ -1,0 +1,1 @@
+<input type="email" name="email" placeholder="email" style="width: 500px; height: 100px; font-size: 30px">

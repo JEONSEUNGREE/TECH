@@ -1,0 +1,1 @@
+<input type="text" name="name" placeholder="name" style="width: 500px; height: 100px; font-size: 30px">
