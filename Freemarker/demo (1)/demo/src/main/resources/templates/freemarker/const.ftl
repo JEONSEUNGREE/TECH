@@ -13,3 +13,8 @@
 <#assign boardPost="postForm" />
 
 <#assign boardFooter="copyright 1988.01.22"/>
+
+<#assign testURI="https://www.lotteon.com/p/display/main/lotteon?mall_no=1&
+ch_no=100172&ch_dtl_no=1000547&
+utm_source=google&
+utm_medium=cpc&utm_campaign=sa_pc&utm_term=TEST&utm_content=TESTKEY" />
