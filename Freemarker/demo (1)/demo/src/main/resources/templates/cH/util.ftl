@@ -1,8 +1,13 @@
 <#macro mainSet x1>
 <script>
-function init() {
+function init(p) {
     const test = "${x1}"
+    let test = p
 	localStorage.setItem(test, "hidden");
+    if(p!) {
+        localStorage.setItem(p, "hidden");
+    }
+    
 }
 </script>
 </#macro>
@@ -26,7 +31,9 @@ function init() {
 <#macro positionSet>
     <@mainSet />
         <#list 0..8 as p>
+        <script>
             init(p)
+        </script>
         </#list>
     <#--  초기 로컬저장소  -->
     <#--  좌표 x , y로 구분  -->

@@ -4,10 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class TodoController {
+public class UriController {
 
-    @GetMapping("/todo")
-    public String todoApp() {
-        return "todo/index";
+    @GetMapping("/uriTest")
+    public String uri() {
+        return "uriTrim/index";
     }
+
+
+
 }
