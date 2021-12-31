@@ -2,7 +2,7 @@ import time # 기다리는 시간을 주기위해 로그인 실패시 자동입�
 
 from selenium import webdriver
 
-browser = webdriver.Chrome()
+browser = webdriver.Chrome("/home/ree/Downloads/chromedriver")
 
 
 # 1. 네이버 이름
