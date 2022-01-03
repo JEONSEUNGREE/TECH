@@ -11,6 +11,11 @@ public class UriController {
         return "uriTrim/index";
     }
 
+    @GetMapping("/jsonTest")
+    public String json() {
+        return "json/index";
+    }
+
 
 
 }

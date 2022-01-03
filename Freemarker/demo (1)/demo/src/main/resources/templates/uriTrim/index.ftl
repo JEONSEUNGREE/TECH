@@ -4,6 +4,6 @@
 <@util.header />
 
 
-<p>메인 URI만 출력</p>
-${util.mainPageCutter (const.inflearn, 2)}
+<p>메인 URI만 count만큼 "/" 자르기</p>
+${util.mainPageCutter (const.inflearn, 4)}
 
