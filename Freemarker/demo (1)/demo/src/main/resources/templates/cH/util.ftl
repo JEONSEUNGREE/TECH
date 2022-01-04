@@ -1,6 +1,6 @@
 <#macro mainSet x1>
 <script>
-function init(p) {
+function init() {
     const test = "${x1}"
     let test = p
 	localStorage.setItem(test, "hidden");
@@ -27,17 +27,12 @@ function init(p) {
         </#list> 
     </table>
 </#macro>
-<#--  p,l,b,k,q,k  -->
+<#--  p, l, b,k,q,k  -->
 <#macro positionSet>
     <@mainSet />
         <#list 0..8 as p>
-        <script>
-            init(p)
-        </script>
+            <script>
+               init(p)
+            </script>
         </#list>
-    <#--  초기 로컬저장소  -->
-    <#--  좌표 x , y로 구분  -->
-    <#--  한번에 한개만 움직임  -->
 </#macro>
-
-<#--  0.0 ~ 8.8  -->

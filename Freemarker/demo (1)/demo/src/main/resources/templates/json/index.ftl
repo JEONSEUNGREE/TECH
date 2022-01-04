@@ -16,3 +16,8 @@
 <#list complex_beer_map.food_pairing as food_pairing>
      <div> ${food_pairing} </div>
 </#list>
+<#assign test="jsonTest" />
+<script>
+    let jsonTest = "${complex_beer_map}";
+     console.log(jsonTest);
+</script>
