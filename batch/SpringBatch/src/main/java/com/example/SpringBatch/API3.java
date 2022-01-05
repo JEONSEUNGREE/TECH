@@ -5,6 +5,8 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.FlowBuilder;
+import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.core.job.flow.JobExecutionDecider;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +15,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class API3 {
-    
+//    각 JOb의 실행 단위는 flow, step, decider가 존재함
+//    그리고 on으로 state이동시 stateTransition을 통해서 currentState, nextState
     /*
     사용자 정의 ExitStatus에서 exitCode를 새롭게 정의해서 설정
     StepExectuionListener의 afterStep() 메서드에서 Custom exitCode 생성 후 새로운 ExitStatus 반환
@@ -69,6 +72,24 @@ public class API3 {
                 })
                 .listener(new PassCheckingListener())
                 .build();
+    }
+
+//    @Bean
+//    public Job batchJob() {
+//        return this.jobBuilderFactory.get("batchJob")
+//                .start(flow())
+//                .next(decider())
+//                .end()
+//                .build();
+//    }
+
+    @Bean
+    public Flow flow() {
+        FlowBuilder<Flow> builder = new FlowBuilder<>("flow");
+
+        return builder.start(step1())
+                .next(step3())
+                .end();
     }
 
 //    @Bean
