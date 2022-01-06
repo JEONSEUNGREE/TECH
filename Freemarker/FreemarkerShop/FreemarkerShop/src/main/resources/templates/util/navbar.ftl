@@ -1,4 +1,5 @@
 <#import "const.ftl" as const/>
+<#import "security.ftl" as info/>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
@@ -21,7 +22,13 @@
           <a class="nav-link" href="#">${const.headerNav[3]}
           </a>
         </li>
-      </ul>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">사용자 정보 : ${info.name}
+          </a>
+        </li>
+        </ul> 
     </div>
   </div>
 </nav>

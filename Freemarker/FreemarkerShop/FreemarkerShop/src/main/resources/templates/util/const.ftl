@@ -1,1 +1,1 @@
-<#assign headerNav=[ "Home", "About", "Pets", "Location" ] />
+<#assign headerNav=[ "Home", "About", "Products", "Location" ] />

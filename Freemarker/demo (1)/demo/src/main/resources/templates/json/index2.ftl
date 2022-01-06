@@ -21,7 +21,7 @@ ${util.uriTest (inflearn, 2)}
 		"name": "Imperial Stout", 
 		"description": "Tasty Stout Beer",
 		"food_pairing": [
-			"Salmon", 
+			"Salmon",   
 			"Pizza with Taleggio"
 		]
 	} >
