@@ -1,13 +1,5 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header">
-    <title>Hello</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-<div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader" />
-    <div class="jumbotron">
+<#macro body>
+<div class="jumbotron">
         <h1>HELLO SHOP</h1>
         <p class="lead">회원 기능</p>
         <p>
@@ -25,7 +17,4 @@
             <a class="btn btn-lg btn-info" href="/orders">주문 내역</a>
         </p>
     </div>
-    <div th:replace="fragments/footer :: footer" />
-</div> <!-- /container -->
-</body>
-</html>
+</#macro>

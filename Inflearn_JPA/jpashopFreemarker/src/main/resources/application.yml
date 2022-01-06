@@ -5,6 +5,12 @@ spring:
     password:
     driver-class-name: org.h2.Driver
 
+  freemarker:
+    cache: false
+    template_update_delay: 0
+    template-loader-path: classpath:/templates
+    suffix: .ftl
+
   jpa:
     hibernate:
       ddl-auto: create

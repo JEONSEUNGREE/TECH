@@ -23,7 +23,7 @@ public class MemberController {
 
     @GetMapping("/members/new")
     public String createFrom(Model model) {
-        model.addAttribute("memberForm", new MemberForm());
+//        model.addAttribute("memberForm", new MemberForm());
 
         return "members/createMemberForm";
     }
