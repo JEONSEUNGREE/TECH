@@ -16,7 +16,7 @@
 <#macro bodyHeader>
 <body>
 <div class="container">
-<div class="header" th:fragment="bodyHeader">
+<div class="header">
     <ul class="nav nav-pills pull-right">
         <li><a href="/">Home</a></li>
     </ul>
