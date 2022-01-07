@@ -14,7 +14,6 @@
         <spring:bind path = "memberForm">
         <div class="form-group">
             <label for="name">이름</label>
-<!--            getter setter 처럼 *가 name에 접근-->
             <#if name??>
             <input type="text" name="name"
                    placeholder="이름을 입력하세요"
@@ -24,10 +23,6 @@
                    placeholder="이름을 입력하세요"
                    class="form-control fieldError">
             </#if>
-            <#if name??>
-            에러
-            </#if>
-
         </div>
         <div class="form-group">
             <label th:for="city">도시</label>

@@ -1,5 +1,9 @@
 server:
-  port: 8888
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
 spring:
   datasource:
     jdbc-url: jdbc:h2:tcp://localhost/~/testdb
