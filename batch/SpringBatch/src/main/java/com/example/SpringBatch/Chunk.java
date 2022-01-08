@@ -45,6 +45,7 @@ public class Chunk {
                 .<String, String>chunk(5)
                 .reader(new ListItemReader<>(Arrays.asList("item1", "item2", "item3", "item4")))
                 .processor(new ItemProcessor<String, String>() {
+//                    <Input, OutPut>chunk(chunk size)
                     @Override
                     public String process(String item) throws Exception {
                         Thread.sleep(300);
