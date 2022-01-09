@@ -19,6 +19,10 @@ spring:
       initialize-schema: embedded
 ---
 spring:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
   config:
     activate:
       on-profile: mysql

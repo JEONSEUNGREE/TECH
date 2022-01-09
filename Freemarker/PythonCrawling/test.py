@@ -20,7 +20,7 @@ options.add_argument('--window-size=1024,768')
 options.add_argument('--disable-gpu')
 
 
-elem.send_keys("권은비")    
+elem.send_keys("프리마커")    
 elem.send_keys(Keys.RETURN)    
 images = driver.find_elements_by_css_selector(".rg_i.Q4LuWd")
 lists = []
