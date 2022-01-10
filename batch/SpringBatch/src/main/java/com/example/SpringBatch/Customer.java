@@ -1,22 +1,17 @@
 package com.example.SpringBatch;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
-@Entity
+@AllArgsConstructor
 public class Customer {
 
-    @Id @GeneratedValue
-    private Long customer_id;
-
-    private String username;
-
-    private int age;
-
-    @OneToOne(mappedBy = "customer")
-    private Address address;
-
-
+    private final long id;
+    private final String firstName;
+    private final String lastName;
+    private final Date birthdate;
 }
