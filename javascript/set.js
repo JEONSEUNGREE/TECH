@@ -32,5 +32,27 @@ console.log(ar3[0]) //A ??? ---> undefined --> 뭔가 배열과는 틀리다. �
 // 사이즈
 console.log(ar3.size);
 
+ar3.delete("C");
+console.log(ar3); // A, B\
+
+// [1] : 생성시 값을 추가하는 방법
+let ar = new Set().add("X").add("Y");
+
+console.log(ar);
+
+ar.add("A");
+ar.add("B");
+ar.add("C");
+
+console.log(ar); // Set(5) { 'X', 'Y', 'A', 'B', 'C' }
+
+// Spread 연산자 (foreach와 같은) Iterable Object의 요소를 하나씩 분리하여 전개 --> 펼침
+
+let testArr = ['K','O','R','E','A']
+console.log(...testArr) // 결과 값 : K O R E A
+console.log([...testArr]) // 결과 값 : [ 'K', 'O', 'R', 'E', 'A' ]
+
+console.log([...'hello']) // 결과 값 : [ 'h', 'e', 'l', 'l', 'o' ]
+
 
 
