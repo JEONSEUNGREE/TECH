@@ -65,7 +65,7 @@ function Animal() {}
 
 
 let tiger = new Animal();
-let lione = new Animal();
+let lion = new Animal();
 // 이렇게 new 연산자와 생성자 함수를 이용하여 객체 생성시 각 객체에는 --> __proto__ 속성이 자동으로 생성.
 // 이 속성(__proto__)은 뭔가를 가리키는데 --> 이 객체가 만들어질 수 있도록 해준 원형 --> "프로토 타입 객체"를 숨은 링크로 가르킨다(참조).
 
@@ -90,5 +90,23 @@ tiger.aniRun = function(){
 }
 
 console.log(tiger.aniRun());
+
+// 속성 추가
+tiger.aniLeg = 4;
+
+console.log("-----------------------------------------");
+console.log(tiger.aniLeg);
+console.log(lion.aniLeg);
+
+// 위와 같은 실습을 통해서 알 수 있는것!!
+// 어떤 함수 (Animal)의 "(Animal) 프로토타입 객체"는 객체의 생성을 위한 부모격의 원형이 되는객체이다.
+// 이 프로토타입(원형)으로 생성된 객체들은 모두 이 "프로토타입 객체"의 멤버들에 접근이 가능하고 사용할 수 있다. --> 생성된 객체들과 공유.
+// 새롭게 생성된 객체 (자식)에서 원형(부모)의 메서드를 다시 재정의해서 만들어 사용하면 이게 적용.
+// 멤버를 추가, 수정, 삭제는 --> prototype 속성을 통해서 적용.
+// 멤버를 읽는 것 --> 객체명 또는 함수의 prototype 속성을 통해서 접근이 가능.
+
+console.clear();
+console.log(lion.aniRun()); // 동물이 뛴다. - 객체로
+console.log(Animal.prototype.aniRun()); // 동물이 뛴다. - 원형인 프로토타입으로 출력
 
 
