@@ -71,5 +71,24 @@ let lione = new Animal();
 
 console.log(tiger); // constructor: 생성자(aninal()) __proto__:object - 최상위 부모 를 가르킴
 
+// Animal 프로토타입 객체 --> tiger, lion과 같은 객체들의 원형이 되는 객체.
+// 따라서, tiger, lion과 같은 객체들이 모두 이 "Animal 프로토타입 객체"에 접근이 가능하고, 동시에
+// 이 "Animal 프로토타입 객체에"멤버 한개를 추가하면 --> tiger, lion객체들도 동시에 이멤버를 공유해서 모두가 사용이 가능.
+
+// "Animal 프로토타입 객체"에 멤버 한 개를 추가?
+Animal.prototype.aniRun = function() {
+    return "animal run!";
+};
+
+let rabbit = new Animal();
+
+console.log(rabbit.aniRun());
+// 만일 Animal 자체에 aniRun()이 존재하면 사용하고 없으면 부모격 proto_type에 찾으러 올라가게된다.
+
+tiger.aniRun = function(){
+    return "tiger run!"
+}
+
+console.log(tiger.aniRun());
 
 
