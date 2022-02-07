@@ -4,6 +4,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
+import LadingPage from "./components/views/LandingPage/LadingPage";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         </ul> */}
 
         <Routes>
-          <Route path="/" element={<Home />}>
+          <Route path="/" element={<LadingPage />}>
           </Route>
           <Route path="/LoginPage" element={<LoginPage />}>
           </Route>
@@ -37,13 +38,13 @@ function App() {
 // You can think of these components as "pages"
 // in your app.
 
-function Home() {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
-  );
-}
+// function Home() {
+//   return (
+//     <div>
+//       <h2>Home</h2>
+//     </div>
+//   );
+// }
 
 // function About() {
 //   return (
