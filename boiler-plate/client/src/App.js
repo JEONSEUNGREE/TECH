@@ -5,8 +5,14 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import LadingPage from "./components/views/LandingPage/LadingPage";
+import Auth from "./hoc/auth";
 
 function App() {
+
+  const AuthLadingPage = Auth(LadingPage, null);
+  const AuthLoginPage = Auth(LoginPage, false);
+  const AuthRegisterPage = Auth(RegisterPage, false);
+
   return (
     <Router>
       <div>
@@ -23,11 +29,11 @@ function App() {
         </ul> */}
 
         <Routes>
-          <Route path="/" element={<LadingPage />}>
+          <Route path="/" element={ <AuthLadingPage />}>
           </Route>
-          <Route path="/LoginPage" element={<LoginPage />}>
+          <Route path="/LoginPage" element={ <AuthLoginPage />}>
           </Route>
-          <Route path="/RegisterPage" element={<RegisterPage />}>
+          <Route path="/RegisterPage" element={ <AuthRegisterPage /> }>
           </Route>
         </Routes>
       </div>
