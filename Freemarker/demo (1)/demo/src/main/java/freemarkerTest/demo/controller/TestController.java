@@ -15,6 +15,7 @@ public class TestController {
     public String test() {
         return "test/test";
     }
+
     @GetMapping("/test/index1")
     public String test1() {
         return "test/test1";
@@ -23,5 +24,10 @@ public class TestController {
     @GetMapping("/test/index2")
     public String test2(Model model) {
         return "test/builtInLibrary";
+    }
+
+    @GetMapping("/")
+    public String test3() {
+        return "pages/main";
     }
 }

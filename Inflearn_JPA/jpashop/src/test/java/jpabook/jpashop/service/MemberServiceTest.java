@@ -1,7 +1,10 @@
 package jpabook.jpashop.service;
 
-import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.domain.*;
+import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.repository.MemberRepository;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -19,7 +23,6 @@ import static org.junit.Assert.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
 public class MemberServiceTest {
 
 
@@ -69,5 +72,44 @@ public class MemberServiceTest {
         fail("예외가 발생해야 한다.");
 
     }
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    public void osivTest () {
+        //given
+
+        Member member = new Member("TestOSIV", new Address("testLocation1", "testLocation2", "testLocation3"));
+        em.persist(member);
+
+        Book book2 = createBook("JPA2 BOOK", 20000, 100);
+        em.persist(book2);
+
+        OrderItem orderItem = OrderItem.createOrderItem(book2, 20000, 4);
+        Delivery delivery = createDelivery(member);
+        Order order = Order.createdOrder(member, delivery, orderItem);
+        em.persist(order);
+
+        //when
+
+
+        //then
+
+    }
+
+
+    private Book createBook(String name, int price, int StockQuantity) {
+            Book book1 = new Book();
+            book1.setName(name);
+            book1.setPrice(price);
+            book1.setStockQuantity(StockQuantity);
+            return book1;
+        }
+            private Delivery createDelivery(Member member) {
+            Delivery delivery = new Delivery();
+            delivery.setAddress(member.getAddress());
+            delivery.setStatus(DeliveryStatus.READY);
+            return delivery;
+        }
 
 }

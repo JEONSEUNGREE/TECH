@@ -4,6 +4,7 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 public class JpashopApplication {
@@ -16,8 +17,8 @@ public class JpashopApplication {
 	@Bean
 	Hibernate5Module hibernate5Module() {
 //		lazy로딩불러오기옵션
-//		Hibernate5Module hibernate5Module = new Hibernate5Module();
-//		hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING, true);
+		Hibernate5Module hibernate5Module = new Hibernate5Module();
+		hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING, true);
 
 		return new Hibernate5Module();
 

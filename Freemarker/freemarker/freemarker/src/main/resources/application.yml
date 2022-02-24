@@ -1,0 +1,28 @@
+server:
+  port: 7777
+spring:
+  datasource:
+      jdbc-url: jdbc:h2:tcp://localhost/~/testdb
+      username: sa
+      password:
+#  Spring Boot??? ??? ?? ??? ??? ????.
+#  ?? ??? /src/main/resources/application.yml ??? ???? FreeMarker ????? ??? ?? ??
+  freemarker:
+    cache: false
+    template_update_delay: 0
+    template-loader-path: classpath:/templates
+    suffix: .ftl
+
+  devtools:
+    livereload:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  h2:
+    console:
+      enabled: true

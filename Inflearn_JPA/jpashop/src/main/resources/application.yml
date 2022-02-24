@@ -1,6 +1,8 @@
+server:
+  port: 7777
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/testdsl
+    url: jdbc:h2:tcp://localhost/~/testdb
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -15,7 +17,8 @@ spring:
 #        미리 db에서 사이즈만큼 값을 가져온다.  N + 1 문제 해결
         default_batch_fetch_size: 100
 #        OSIV 옵션 디폴트값 disable
-    open-in-view: false
+#    : org.hibernate.LazyInitializationException: could not initialize proxy [jpabook.jpashop.domain.Member#1] - no Session
+    open-in-view: true
 
 logging:
   level:

@@ -1,0 +1,133 @@
+body, ul {
+    margin: 0;
+    padding: 0;
+}
+/* ul, ol 에서 목록앞에 붙는 마커를 없애기위함 */
+li {
+    list-style-type: none;
+}
+
+body {
+    background-color: #111;
+    color: #999;
+}
+
+.wrapper {
+    /* display : flex 안에 있는 내용이 컨테츠 크기만큼 핏하게됨*/
+    display: flex;
+    /* height : auto wrapper 안에 담겨진 내용물들의 높이 */
+    height: 100vh;
+    /* 내부에 중앙정렬 */
+    justify-content: center;
+    /* 세로 중간정렬 */
+    /* 주의 이것만 정렬해도 안될수 있는게 내용물들의 높이에서 맞춰서 정해짐 */
+    align-items: center;
+}
+
+.team {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-item {
+    /* 이미지 원래 사이즈로 픽스 */
+    flex-basis: 200px;
+    /* 서로 간격 줄이기 */
+    margin: 0 10px;
+    /* 호버관련 transiton 효과 부드럽게 */
+    transition: all .4s;
+    /* 호버됬을때 크기가 줄어들지않게처리 */
+    flex-shrink: 0;
+}
+
+.team-item img {
+    width: 100%;
+}
+
+.profile {
+    background-color: #222;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-contents {
+    /* 컨텐츠영역 절대좌표  */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 10px;
+}
+
+.profile-contents p {
+    color: white;
+    font-size: 12px;
+    min-width: 160px;
+    /* p태그 안보이게 처리 hover당시에 처리하기 위함 */
+    max-height: 0;
+    overflow: hidden;
+    transition: all .4s;
+    /* transition-delay: .8s; */
+}
+
+.team-item:hover .profile-contents p {
+    max-height: 230px;
+}
+
+.profile-contents h2 {
+    font-size: 20px;
+}
+
+.profile-contents h2 span {
+    /* 줄바꿈과 폰트조절 */
+    display: block;
+    font-size: 10px;
+    min-width: 150px;
+}
+
+/* 호버 */
+.team-item:hover {
+    flex-basis: 250px;
+    /* 호버 됬을때 마진 */
+    margin: 0 20px;
+}
+
+.profile_red {
+    color:  rgb(255, 25, 25);
+}
+.profile_beige {
+    color:  beige;
+}
+.profile_pink {
+    color:  rgb(255, 60, 93);
+}
+.profile_purple {
+    color:  rgb(255, 36, 255);
+}
+
+/* 그라데이션 적용 */
+.profile:before {
+    content: ' ';
+
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+99&0+0,0.95+100 */
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.94) 99%, rgba(0,0,0,0.95) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.94) 99%,rgba(0,0,0,0.95) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.94) 99%,rgba(0,0,0,0.95) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#f2000000',GradientType=0 ); /* IE6-9 */
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 200px;
+}
+
+.team-item:hover .profile-contents p {
+    opacity: 1;
+    margin-top: 0.2em;
+}
+
+
+
+/* css 상속에서는 부모가 자식에게 주는 부분에서
+자식의 속성을 우선시한다. */
