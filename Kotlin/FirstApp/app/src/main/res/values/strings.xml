@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FirstApp</string>
+    <string name="main_question">질문페이지입니다.</string>
+    <string name="main_title">Let\'s find out\n your love type!</string>
+</resources>
