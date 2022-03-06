@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.firstapp.R
+import kotlinx.android.synthetic.main.fragment_main.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,6 +41,16 @@ class QuestionFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_question, container, false)
     }
 
+    lateinit var navController : NavController
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        btn_next.setOnClickListener{
+            navController.navigate(R.id.action_selectionFragment_to_resultFragment)
+        }
+
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

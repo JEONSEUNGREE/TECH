@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+// 4.2버전부터는 추가해줘야함
+    id'kotlin-android-extensions'
 }
 
 android {

@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.firstapp.R
+import kotlinx.android.synthetic.main.fragment_result.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +25,8 @@ class ResultFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    var option = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,8 +39,46 @@ class ResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        option = arguments?.getInt("index")?:-1
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_result, container, false)
+    }
+
+    lateinit var navController : NavController
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        navController = Navigation.findNavController(view)
+        setResult(option)
+    }
+
+    fun setResult(option: Int) {
+
+        when (option) {
+            1 -> {
+                tv_main.text = "You are a QUITTER"
+                tv_sub.text = "subText"
+            }
+            2 -> {
+                tv_main.text = "You are a QUITTER2"
+                tv_sub.text = "subText2"
+
+            }
+            3 -> {
+                tv_main.text = "You are a QUITTER3"
+                tv_sub.text = "subText3"
+
+            }
+            4 -> {
+                tv_main.text = "You are a QUITTER4"
+                tv_sub.text = "subText4"
+
+            }
+        }
     }
 
     companion object {
