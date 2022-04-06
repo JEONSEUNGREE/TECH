@@ -1,0 +1,25 @@
+제네릭을 통한 타입 규정으로 compile 에러 유도 객체타입의 무결성유지
+
+예)
+
+class Orange {
+    private name = "Orange"
+    constructor (private brix: number = 0){}
+}
+class Grape {
+    private name = "Grape"
+    constructor (private brix: number = 0){}
+}
+
+class Box<T> {
+
+    constructor(private fruit: T) {}
+
+    getFruit(): T {
+        return this.fruit;
+    }
+}
+
+제네릭 <T> 타입 설정없이 유추하는 형식의 클래스로 받는다면 new인스턴스 생성시 클래스를 넣지않고 string을 넣어도 컴파일 에러가 발생하지 않는다.
+혹은 extends로 공통클래스를 상속받아 구현한 클래스 형태인 <? extends Fruit> 로 제네릭을 설정해도 컴파일 에러를 유도할수있다.
+

@@ -13,7 +13,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/inquirer": "^8.2.1",
     "concurrently": "^7.1.0",
+    "inquirer": "^8.2.2",
     "nodemon": "^2.0.15"
   }
 }

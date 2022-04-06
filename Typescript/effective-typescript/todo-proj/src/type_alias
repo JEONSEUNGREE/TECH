@@ -1,0 +1,25 @@
+새로운 타입을 정의하는 방법은 type alias 와 interface를 정의하는 두 가지 방식이 존재한다.
+type alias를 이용하ㅏ면 객체, 공용체(union), 튜플,기본 타입의 별칭을 생성할 수 있다.
+type alias도 제네릭의 사용이 가능하며 셀프참조도 가능하다.
+
+type Mynumber = number;
+const n : Mynumber = 10;
+
+type Container<T> = {value : T};
+
+type alias를 사용하는 경우
+type User = { name: string, age:number } 
+const testUser : User = { name: "Kim", age: 25 };
+
+type alias를 사용하지 않는경우
+const testUser : { name : string, age : number } = { name: "Kim", age: 25 };
+
+type alias를 사용하는 경우
+function testUser (user : User) {
+    alert(`${user.name} ${user.number}`)
+}
+
+type alias를 사용하지 않는경우
+function testUser (user : { name : string, age : number }) {
+    alert(`${user.name} ${user.number}`)
+}
