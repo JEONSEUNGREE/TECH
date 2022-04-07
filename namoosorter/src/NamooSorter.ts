@@ -1,10 +1,12 @@
+import NumbersCollection from './NumberCollection';
+
 class NamooSorter {
 
-    constructor(private collection : number[] | string) {
+    constructor(private collection : NumbersCollection) {
 }
 
 
-    sort() : number[] | string{
+    sort() : void {
 
         const { length } = this.collection;
 
