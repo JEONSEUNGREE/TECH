@@ -1,0 +1,74 @@
+인터페이스는 여러 타입의 속성으로 이루어진 새로운 타입을 정의하는 방법이다.
+인터페이스도 클래스와 마찬가지로 프로퍼티와 메서드를 갖짐ㄴ 인터페이스를 이용한 인스턴스는 생성할 수 없다.
+인터페이스에 정의하는 메서드는 메서드는 모두 추상 메서드며 abstract 키워드를 사용하지 않는다.
+인터페이스를 이용하면 변수, 함수 클래스에 타입을 지정할 수 있다.
+인터페이스의 프로퍼티는 선택적 옵션과 읽기 전용 옵션을 지정할 수 있다.
+인터페이스에 정의하는 모든 프로퍼티가 필수 요소가 아닌 경우 ? 를 지정하여 선택적 프로퍼티로 지정한다.
+인터페이스에 정의하는 특정 프로퍼티는 readonly를 지정해 상수처럼 사용할수있다. 
+
+interface TodoItem {
+    id : string,
+    task : string,
+    complete : boolean
+}
+
+const todo : TodoItem = {
+    id : "A123",
+    task : "Study TypeScript!",
+    complete = false
+}
+
+interface SumFunc {
+    (lefNumber : number, rightNumber : number);
+}
+
+const mySum : SumFunc = function( lefNumber : number, rightNumber : number) {
+    return lefNumber + rightNumber;
+}
+
+
+interface Shpae {
+    p1 : number [],
+    p2 : number [],
+    p2 : number [10,10]
+}
+
+//인테페이스 구현이후에 초기화후 assign 불가
+interface Point {
+    readonly x: number;
+    readonly y: number;
+}
+
+let p1 : Point = {
+    x : 100,
+    y : 20
+}
+
+p1.x = 100;
+// Cannot assign to "x" because it is readonly property
+
+클래스는 implements 키워드를 통해 인터페이스를 구현할 수 있다.
+인터페이스를 구현한 클래스를 인터페스에 정의된 추상메서드로 구현해야 한다.
+하나의 클래스는 다수의 인터페이스 구현 가능하며 인터페이스간의 확장(extends)도 가능하다.
+특정 인터페이스에서 정의한 프로퍼티나 메서드를 갖고 있는 클래스는 해당 인터페이스를 구현한 것으로 인정하며 이를 덕 타이핑(duck typing) 이라고한다.
+
+interface IBhavior {
+    play: void;
+}
+
+class Soccer implements IBhavior {
+    play() {
+        console.log ("Play Soccer");
+    }
+}
+
+class Guitar implements IBhavior {
+    play() {
+        console.log("Play the Guitar")
+    }
+}
+
+let bhavior = new Guitar();
+bhavior.play();
+bhavior = new Soccer();
+bhavior.play();
