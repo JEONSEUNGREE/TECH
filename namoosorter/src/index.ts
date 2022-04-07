@@ -1,22 +1,28 @@
-import NamooSorter from "./NamooSorter"
+import NamooSorter from './NamooSorter';
+import NumberCollection from './NumberCollection';
+import CharactersCollection from './CharatersCollection';
+import CustomerCollection from './CustomerCollection';
+import { Customer } from './Customer';
+
+let numCollection = new NumberCollection([10, -7, 55, 3, 21]);
+let CharactersCollection1 = new CharactersCollection("typescript");
+let customerCollection = new CustomerCollection([
+    new Customer("A111", "Kim"),
+    new Customer("B111", "Park"),
+    new Customer("C111", "Lee"),
+    
+]);
+
+// let sorter = new NamooSorter(numCollection);
+
+// let sorter2 = new NamooSorter(CharactersCollection1);
+
+let sorter = new NamooSorter(customerCollection);
+sorter.sort();
+console.log(sorter.printCollection());
 
 
-const sorter = new NamooSorter([10, -7, 22, 3, 15]);
-console.log(sorter.sort());
+// sorter2.sort();
 
-const sorterStr = new NamooSorter("typscript");
-console.log(sorterStr.sort());
+// console.log(sorter2.getCollection);
 
-// let data : string | number [];
-//                                             // data is string에서 is는 타입가드하는부분
-// function isString(data: string | number[]): data is string{
-//             // 타입 단언 string타입으로
-//     return (<string>data).split !== undefined;
-// }
-
-// data = "TypeScript";
-// if (isString(data)) {
-//     data.split('');
-// }else {
-//     // number []
-// }
