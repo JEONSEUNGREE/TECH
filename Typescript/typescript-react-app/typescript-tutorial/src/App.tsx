@@ -11,20 +11,12 @@ let role : [string, string];
 
 role = ["college", "student"];
 
-type Person = {
-  name : string;
-  age?: number;
-}
+let printTestName : (name : string) => never
 
-let person : Person = {
-  name: "seungree",
-}
-
-let person1 : Person = {
-  name: "bomi",
-  age: 27
-
-}
+// type Person = {
+//   name : string;
+//   age?: number;
+// }
 
 // let printName : (name: string) => number;
 
@@ -34,19 +26,38 @@ type X = {
 }
 
 
-type Y = X & {
-  c: string,
-  d: 42
+interface Person {
+  name: string;
+  age?: number;
 }
 
-let y: Y = {
-  c: "test",
-  b: 28,
-  a: "HiHi",
-  d: 42
+interface Guy extends Person, X {
+  professoion : string
 }
 
-console.log(y)
+
+type Y = Person & {
+  a: string;
+  b: number;
+}
+
+
+
+
+
+// type Y = X & {
+//   c: string,
+//   d: 42
+// }
+
+// let y: Y = {
+//   c: "test",
+//   b: 28,
+//   a: "HiHi",
+//   d: 42
+// }
+
+// console.log(y)
 // function personName(name : string) {
 //   console.log(name);
 // }
