@@ -2,6 +2,6 @@ strict모드란 개발 모드에서만 활성화되기때문에 프로덕션에 
 부가적인 검사와 경고 활성화 하며 FRAGMENT가 따로 없음
 
 class App extends React.Component의 클래스형태
-함수형태가 존재한다.
+React Hooks를 사용한 함수형태가 존재한다. 함수형태를 권장함
 
 function에서 JSX를 return하는데 이는 JS를 확장한 형태이다.
