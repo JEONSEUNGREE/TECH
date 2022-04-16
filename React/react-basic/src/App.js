@@ -1,29 +1,41 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
+import Counter from './components/Counter'
 
 function App() {
-//  state가 변경될때마다 리렌더링됨
-  const [ count, setCount ] = useState(0);
-  const [ kossie, setKossie ] = useState(0);
 
-  useEffect(() => {
-    console.log(count)
-  }, [count,kossie]);
+  const [ buttonName, setButtonName ] = useState("클릭");
 
-  useEffect(() => {
-    console.log("first Rendering")
-  }, [])
-
-  const increment = () => {
-    setCount(count + 1)
+  const clickButton = () => {
+    setButtonName("click");
   }
+
+
+
+// //  state가 변경될때마다 리렌더링됨
+//   const [ count, setCount ] = useState(0);
+//   const [ count1, setCount1 ] = useState(0);
+//   const [ count2, setCount2 ] = useState(0);
+
+//   const increment = () => {
+//     setCount(count + 1)
+//   }
+
+//   const increment1 = () => {
+//     setCount1(count1 + 1)
+//   }
+
+//   const increment2 = () => {
+//     setCount2(count2 + 1) 
+//   }
 
   return (
     <div className="App">
       <h1>KossieCoder</h1>
-      <div value={count}></div>
-      <button onClick={increment}>Click</button>
-      <button onClick={() => setKossie(kossie + 1)}>Click1</button>
+      <Counter name="seungRee"/>
+      <Counter name={buttonName}/>
+      <Counter/>
+      <button onClick={clickButton}>click</button>
     </div>
   );
 }
