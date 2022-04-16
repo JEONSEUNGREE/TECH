@@ -8,20 +8,23 @@ import MovieForm from './components/MovieForm';
 function App() {
 
   const [movies, setMovies] = useState([
-    { title: 'Kossie Coder1', year: 2001 },
-    { title: 'Kossie Coder2', year: 2002 },
-    { title: 'Kossie Coder3', year: 2003 }
   ])
 
   useEffect(() => {
     console.log("render");
   })
 
-  const renderMovies = movies.map(movie => {
+  const removeMovie = (id) => {
+    setMovies(movies.filter(movie => {
+      return movie.id !== id;
+    }))
+  }
+
+  const renderMovies = movies.length ? movies.map(movie => {
     return (
-      <Movielist movie={movie} key={movie.title} />
-    )
-  })
+      <Movielist movie={movie} key={movie.id} removeMovie={removeMovie}/>
+    );
+  }) : "추가된 영화가 없습니다.";
 
 
 
