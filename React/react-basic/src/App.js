@@ -3,7 +3,13 @@ import React, { useState, useEffect } from 'react';
 // import Counter from './components/Counter'
 import Movielist from './components/MovieList';
 import MovieForm from './components/MovieForm';
-
+import Navbar from './components/Navbar';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Routes,
+} from 'react-router-dom'
 
 function App() {
 
@@ -22,7 +28,7 @@ function App() {
 
   const renderMovies = movies.length ? movies.map(movie => {
     return (
-      <Movielist movie={movie} key={movie.id} removeMovie={removeMovie}/>
+      <Movielist movie={movie} key={movie.id} removeMovie={removeMovie} />
     );
   }) : "추가된 영화가 없습니다.";
 
@@ -34,9 +40,28 @@ function App() {
 
   return (
     <div className='app'>
-      <h1>Movie list</h1>
-      <MovieForm addMovie={addMovie}/>
-      {renderMovies}
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path='/*' element={
+            <div>
+              <h1>Home</h1>
+            </div>
+          }>
+          </Route>
+          <Route path='movies' element={
+            <div>
+              <h1>Movie list</h1>
+              <MovieForm addMovie={addMovie} />
+              {renderMovies}
+            </div>
+          } />
+          <Route path='users' element={
+            <h1>Users</h1>
+          }>
+          </Route>
+        </Routes>
+      </Router>
     </div>
   )
 }
