@@ -6,10 +6,10 @@ import MovieForm from './components/MovieForm';
 import Navbar from './components/Navbar';
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
   Routes,
 } from 'react-router-dom'
+import Users from './pages/Users';
 
 function App() {
 
@@ -57,7 +57,7 @@ function App() {
             </div>
           } />
           <Route path='users' element={
-            <h1>Users</h1>
+            <Users/>
           }>
           </Route>
         </Routes>
