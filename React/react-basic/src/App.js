@@ -7,9 +7,7 @@ import {
   Route,
   Routes,
 } from 'react-router-dom'
-import Users from './pages/Users';
-import Home from './pages/Home';
-import Movies from './pages/Movies';
+import routes from './routes';
 
 function App() {
 
@@ -24,17 +22,16 @@ function App() {
         <Navbar />
         <div className='container'>
           <Routes>
-            <Route path='/' element={
-              <Home />
-            }>
-            </Route>
-            <Route path='movies' element={
-              <Movies />
-            }/>
-            <Route path='users' element={
-              <Users />
-            }>
-            </Route>
+            {routes.map(route => {
+              return (
+                <Route key={route.path}
+                  path={route.path}
+                  element={
+                    <route.component />
+                  }>
+                  </Route>
+              )
+            })}
           </Routes>
         </div>
       </Router>
