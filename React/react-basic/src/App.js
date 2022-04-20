@@ -42,25 +42,27 @@ function App() {
     <div className='app'>
       <Router>
         <Navbar />
-        <Routes>
-          <Route path='/*' element={
-            <div>
-              <h1>Home</h1>
-            </div>
-          }>
-          </Route>
-          <Route path='movies' element={
-            <div>
-              <h1>Movie list</h1>
-              <MovieForm addMovie={addMovie} />
-              {renderMovies}
-            </div>
-          } />
-          <Route path='users' element={
-            <Users/>
-          }>
-          </Route>
-        </Routes>
+        <div className='container'>
+          <Routes>
+            <Route path='/*' element={
+              <div>
+                <h1>Home</h1>
+              </div>
+            }>
+            </Route>
+            <Route path='movies' element={
+              <div>
+                <h1>Movie list</h1>
+                <MovieForm addMovie={addMovie} />
+                {renderMovies}
+              </div>
+            } />
+            <Route path='users' element={
+              <Users />
+            }>
+            </Route>
+          </Routes>
+        </div>
       </Router>
     </div>
   )
