@@ -1,9 +1,12 @@
 import "./ExpenseItem.css";
+import ExpenseDate from "./ExpenseDate";
 
-function ExpenseItem({title, amount, date}) {
+function ExpenseItem({ title, amount, date }) {
+  
+
   return (
     <div className="expense-item">
-      <div>{date.toISOString()}</div>
+      <ExpenseDate date={date}/>
       <div className="expense-item__description">
         <h2>{title}</h2>
         {/* <h2>{1+1}</h2> */}
