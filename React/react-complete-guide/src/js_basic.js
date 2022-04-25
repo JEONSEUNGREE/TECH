@@ -57,4 +57,41 @@
 // console.log(filter(1,2,3)) ==> 1
 // 레스트연산자는 배열을 여러개 받아서 하나의 배열로 취급한다.
 
+// 6. 구조 분해 할당
+
+// const numbers = [1, 2, 3];
+//  [num1, , num3] = numbers;
+// console.log(num1, num3); 
+// 결과 : 1, 3
+
+// const numbers = [1, 2, 3];
+//  [num1, num2] = numbers;
+// console.log(num1, num2); 
+// 결과 : 1, 2
+
+// 7. 참조형 원시형 데이터 타입
+// const person = {
+// name: 'max'
+// }
+
+// const secondperson = person;
+
+// 아래는 복사 위는 참조
+// const secondperson = {
+// ...person
+// }
+
+// person.name = 'Menu';
+// console.log(secondperson)
+
+// const numbers = [1, 2, 3];
+
+// const doubleNumArray = numbers.map((num) => {
+    // return num * 2
+// })
+
+// console.log(numbers);
+// console.log(doubleNumArray);
+
+
 
