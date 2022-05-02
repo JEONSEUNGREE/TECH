@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 import ErrorModal from "../UI/ErrorModal";
@@ -7,12 +7,16 @@ import Wrapper from "../Helpers/Wrapper";
 import styles from "./AddUser.module.css";
 
 const AddUser = (props) => {
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+
   const [enteredUsername, setEnteredUsername] = useState("");
   const [enteredUserAge, setEnteredUserAge] = useState("");
   const [error, setError] = useState();
 
   const addUserHandler = (event) => {
     event.preventDefault();
+    console.log(nameInputRef.current.value)
     if (
       enteredUsername.trim().length === 0 ||
       enteredUserAge.trim().length === 0
@@ -65,6 +69,7 @@ const AddUser = (props) => {
               value={enteredUsername}
               type="text"
               onChange={usernameChangeHandler}
+              ref={nameInputRef}
             />
             <label htmlFor="age">Age (Years)</label>
             <input
@@ -72,6 +77,7 @@ const AddUser = (props) => {
               value={enteredUserAge}
               type="number"
               onChange={userAgeChangeHandler}
+              ref={ageInputRef}
             />
             <Button type="submit">Add User</Button>
           </form>
