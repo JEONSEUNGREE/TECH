@@ -1,3 +1,7 @@
+// useState와 useReducer 사용시기
+// useState는 주요 사용 state이며 몇종류 없는경우 사용 적합
+// 만약 복잡한 state를 다룬다면 reducer를 사용한다.
+
 import React, { useState, useEffect, useReducer } from "react";
 
 import Card from "../UI/Card/Card";
