@@ -1,25 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
 
+// reducer 함수는 외부에 선언한다 이유는 함수 내부에서 어떤 데이터도 필요로하지않기때문
+const emailReducer = (state, action) => {
+  if (action.type === "USER_INPUT") {
+    return {
+      value: action.val,
+      isValid: action.val.includes("@")
+    };
+  }
+  if (action.type === "INPUT_BLUR") {
+    return { value: state.value, isValid: state.value.includes("@") }
+  }
+
+  return {
+    value: "",
+    isValid: false,
+  };
+};
+
 const Login = (props) => {
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [emailIsValid, setEmailIsValid] = useState();
+  // const [enteredEmail, setEnteredEmail] = useState("");
+  // const [emailIsValid, setEmailIsValid] = useState();
   const [enteredPassword, setEnteredPassword] = useState("");
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+  const [emailState, dispatchEmail] = useReducer(emailReducer, {
+    value: '',
+    isValid: null
+  });
 
-  useEffect(() => {
-    console.log("EFFECT RUNNING")
+  // useEffect(() => {
+  //   console.log("EFFECT RUNNING");
 
-    return () => {
-      console.log("first CleanUp")
-    }
-
-  }, [enteredEmail]);
+  //   return () => {
+  //     console.log("first CleanUp");
+  //   };
+  // }, [enteredEmail]);
 
   // useEffect(() => {
   //   console.log("Checking form validity")
@@ -51,9 +72,9 @@ const Login = (props) => {
   //   //   enteredEmail.includes("@") && enteredPassword.trim().length > 6
   //   // );
   // }, [setFormIsValid, enteredEmail, enteredPassword]);
-  
+
   const emailChangeHandler = (event) => {
-    setEnteredEmail(event.target.value);
+    dispatchEmail({type: 'USER_INPUT', val: event.target.value})
 
     // 아래부분에서 발생할 수 있는문제는 다음과같다.
     // 일전에 봤듯이 기존 스냅샷에 () => 와 같이 최산 스냅샷을 가져와서
@@ -62,7 +83,7 @@ const Login = (props) => {
     // 리액트의 state 업데이트를 스케쥴링하는 방식에 주의하자.
     // 비밀번호가 최신의 비밀번호로 업데이트 된 state가 아닐수있다는 의미이다.
     setFormIsValid(
-      event.target.value.includes("@") && enteredPassword.trim().length > 6
+      emailState.isValid && enteredPassword.trim().length > 6
     );
   };
 
@@ -70,12 +91,13 @@ const Login = (props) => {
     setEnteredPassword(event.target.value);
 
     setFormIsValid(
-      event.target.value.trim().length > 6 && enteredEmail.includes("@")
+      emailState.isValid && event.target.value.trim().length > 6
     );
   };
 
   const validateEmailHandler = () => {
-    setEmailIsValid(enteredEmail.includes("@"));
+    // setEmailIsValid(emailState.isValid);
+    dispatchEmail({type: 'INPUT_BLUR'})
   };
 
   const validatePasswordHandler = () => {
@@ -84,7 +106,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(enteredEmail, enteredPassword);
+    props.onLogin(emailState.value, enteredPassword);
   };
 
   return (
@@ -92,14 +114,14 @@ const Login = (props) => {
       <form onSubmit={submitHandler}>
         <div
           className={`${classes.control} ${
-            emailIsValid === false ? classes.invalid : ""
+            emailState.isValid === false ? classes.invalid : ""
           }`}
         >
           <label htmlFor="email">E-Mail</label>
           <input
             type="email"
             id="email"
-            value={enteredEmail}
+            value={emailState.value}
             onChange={emailChangeHandler}
             onBlur={validateEmailHandler}
           />
