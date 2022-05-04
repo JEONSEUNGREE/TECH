@@ -2,11 +2,13 @@
 // useState는 주요 사용 state이며 몇종류 없는경우 사용 적합
 // 만약 복잡한 state를 다룬다면 reducer를 사용한다.
 
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
+import AuthContext from "../store/Auth-Context";
+import Input from "../UI/Input/Input";
 
 // reducer 함수는 외부에 선언한다 이유는 함수 내부에서 어떤 데이터도 필요로하지않기때문
 const emailReducer = (state, action) => {
@@ -66,6 +68,8 @@ const Login = (props) => {
     isValid: null,
   });
 
+  const authCtx = useContext(AuthContext);
+
   // useEffect(() => {
   //   console.log("EFFECT RUNNING");
 
@@ -75,19 +79,17 @@ const Login = (props) => {
   // }, [enteredEmail]);
 
   const { isValid: emailIsValid } = emailState;
-  const { isValid: passwordIsValid } = passwordState
+  const { isValid: passwordIsValid } = passwordState;
 
   useEffect(() => {
-    console.log("Checking form validity")
+    console.log("Checking form validity");
 
     // 타이머를 설정하면 타이머가 여러개 설정되었을시 마지막 타이머만 작동한다.
     const identifier = setTimeout(() => {
-      console.log("TEST")
-      setFormIsValid(
-        emailIsValid && passwordIsValid
-      )
+      console.log("TEST");
+      setFormIsValid(emailIsValid && passwordIsValid);
     }, 500);
-    console.log(emailIsValid)
+    console.log(emailIsValid);
     // 클린업 함수 클린업 프로세스로 실행함
     // 클린업 함수는 첫번째 컴포넌트 실행시 실행을 제외하고 이후에 실행시에 발생하는
     // useEffect 실행 이전에 실행된다.
@@ -95,8 +97,8 @@ const Login = (props) => {
     // 정리하자면 모든 새로운 사이드 이펙트함수가 실행되기전 (처음실행 되기전에는 실행되지 않음)
     // 컴포넌트가 제거되기 전에 실행된다.
     return () => {
-      console.log("CLEAN UP")
-      clearTimeout(identifier)
+      console.log("CLEAN UP");
+      clearTimeout(identifier);
     };
     // 앱 초기 한번만 실행되거나 컴포넌트 변화 감지에서 작동함으로
     // 의존성부분을 추가하여 변화에 동작할수있게 작성하면된다.
@@ -124,7 +126,7 @@ const Login = (props) => {
   };
 
   const passwordChangeHandler = (event) => {
-    dispatchPassword({ type: 'USER_INPUT', val: event.target.value })
+    dispatchPassword({ type: "USER_INPUT", val: event.target.value });
 
     // setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
   };
@@ -135,46 +137,36 @@ const Login = (props) => {
   };
 
   const validatePasswordHandler = () => {
-    dispatchPassword({ type:"INPUT_BLUR" })
+    dispatchPassword({ type: "INPUT_BLUR" });
     // setPasswordIsValid(enteredPassword.trim().length > 6);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    authCtx.onLogin(emailState.value, passwordState.value);
   };
 
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
-        <div
-          className={`${classes.control} ${
-            emailState.isValid === false ? classes.invalid : ""
-          }`}
-        >
-          <label htmlFor="email">E-Mail</label>
-          <input
-            type="email"
+          <Input
             id="email"
+            label="E-Mail"
+            type="email"
+            isValid={emailIsValid}
             value={emailState.value}
             onChange={emailChangeHandler}
             onBlur={validateEmailHandler}
           />
-        </div>
-        <div
-          className={`${classes.control} ${
-            passwordState.isValid === false ? classes.invalid : ""
-          }`}
-        >
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
+          <Input
             id="password"
+            label="Pasword"
+            type="password"
+            isValid={passwordIsValid}
             value={passwordState.value}
             onChange={passwordChangeHandler}
             onBlur={validatePasswordHandler}
           />
-        </div>
         <div className={classes.actions}>
           <Button type="submit" className={classes.btn} disabled={!formIsValid}>
             Login
