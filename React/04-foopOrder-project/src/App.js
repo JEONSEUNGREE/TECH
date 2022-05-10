@@ -5,22 +5,22 @@ import Cart from "./components/Cart/Cart";
 
 
 function App() {
-  const [cartIsShown, setCartIsShown] = useState(false);
+  // const [cartIsShown, setCartIsShown] = useState(false);
 
-  const showCartHandler = () => {
-    setCartIsShown(true);
-  }
+  // const showCartHandler = () => {
+  //   setCartIsShown(true);
+  // }
 
-  const hideCartHandler = () => {
-    setCartIsShown(false);
-  }
+  // const hideCartHandler = () => {
+  //   setCartIsShown(false);
+  // }
 
   return (
     <Fragment> 
-      {cartIsShown && <Cart onClose={hideCartHandler}/>}
-      <Header onShownCart={showCartHandler} />
+      <Header/>
+      <Cart/>
       <main>
-        <Meals />
+        <Meals/>
       </main>
     </Fragment>
   );
