@@ -3,11 +3,11 @@ import User from "./User";
 
 import classes from "./Users.module.css";
 
-const DUMMY_USERS = [
-  { id: "u1", name: "Max" },
-  { id: "u2", name: "Manuel" },
-  { id: "u3", name: "Julie" },
-];
+// const DUMMY_USERS = [
+//   { id: "u1", name: "Max" },
+//   { id: "u2", name: "Manuel" },
+//   { id: "u3", name: "Julie" },
+// ];
 
 class Users extends Component {
   constructor() {
@@ -30,7 +30,7 @@ class Users extends Component {
   render() {
     const usersList = (
       <ul>
-        {DUMMY_USERS.map((user) => (
+        {this.props.users.map((user) => (
           <User key={user.id} name={user.name} />
         ))}
       </ul>
@@ -66,3 +66,8 @@ class Users extends Component {
 // };
 
 export default Users;
+
+// 클래스 컴포넌트의 생명주기
+// componentDidMount -> useEffect(...,[])에 빈배열의 형태 의존성이없는경우
+// componentDidUpdate -> 재평가 재호출시 useEffect(...,[someValue]) 특정 의존성배열이 존재하는경우
+// componentWillUnmmount -> 컴포넌트가 DOM에서 삭제되기 직전에 호출되며 useEffect()에 cleanup함수와 같다.
