@@ -7,15 +7,16 @@ function App() {
 
   const [movies, setMovies] = useState([]);
 
-  function fetchMoviesHandler() {
-    fetch("https://swapi.dev/api/films/")
-      .then((res) => {
-        // 프로미스임으로 객체를 반환후 뒤에 작업 진행
-        return res.json();
-      })
-      .then(data => {
-        console.log(data)
-        const transformedMovides = data.results.map(movieData => {
+  async function fetchMoviesHandler() {
+    const response = await fetch("https://swapi.dev/api/films/")
+    const data = await respons.json();
+      // .then((res) => {
+      //   // 프로미스임으로 객체를 반환후 뒤에 작업 진행
+      //   return res.json();
+      // })
+      // .then(data => {
+        // console.log(data)
+      const transformedMovides = data.results.map(movieData => {
           return {
             id: movieData.episode_id,
             title: movieData.title,
@@ -24,7 +25,7 @@ function App() {
           }
         });
         setMovies(data.results);
-      });
+      };
   }
 
   return (
