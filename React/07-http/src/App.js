@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import MoviesList from "./components/MoviesList";
 import "./App.css";
-
+// 컴포넌트의 상태를 바꾸는 fetch는 사이드이펙트에 해당하기에
+// useEffect훅에 넣어야한다.
 function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  async function fetchMoviesHandler() {
+  const fetchMoviesHandler = useCallback(async function() {
     setIsLoading(true);
     setError(null);
     try {
@@ -38,7 +39,11 @@ function App() {
     } catch (error) {
       setError(error.message);
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    fetchMoviesHandler();
+  }, [fetchMoviesHandler]);
 
   let content = <p>Found no Movies.</p>;
 
