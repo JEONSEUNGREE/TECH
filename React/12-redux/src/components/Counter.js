@@ -6,18 +6,18 @@ import { useSelector, connect, useDispatch } from "react-redux";
 
 import classes from "./Counter.module.css";
 
-import { counterActions } from '../store/index';
+import { counterActions } from '../store/counter';
 
 const Counter = () => {
   //   // 스토어에서 어떤 데이터를 추출할지 선택함
   //   // 아래와같이 useSelector를 설정할경우 리액트리덕스가 자동으로 서브스크립션을 설정한다.
   //   // 그렇기떄문에 리덕스 스토어가 바뀐다면 자동으로 컴포넌트 함수가 다시 실행될것이다.
   //   // 만약 UNMOUNT시에는 자동으로 리액트 리덕스가 서브스크립션을 클리어한다.
-  const counter = useSelector((state) => state.counter);
+  const counter = useSelector((state) => state.counter.counter);
 
   const dispatch = useDispatch();
 
-  const show = useSelector(state => state.showCounter);
+  const show = useSelector(state => state.counter.showCounter);
 
   const incrementHandler = () => {
     // dispatch({ type: "increment" });
