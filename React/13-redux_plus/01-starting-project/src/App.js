@@ -6,6 +6,7 @@ import Products from "./components/Shop/Products";
 import { useSelector, useDispatch } from "react-redux";
 import { uiActions } from "./store/ui-slice";
 import Notification from "./components/UI/Notification";
+import { sendCartData } from './store/cart-slice'
 
 let isInitial = true;
 
@@ -19,50 +20,51 @@ function App() {
   const notification = useSelector((state) => state.ui.notification);
 
   useEffect(() => {
-    const sendcartData = async () => {
-      dispatch(
-        uiActions.showNotification({
-          status: "pending",
-          title: "sending...",
-          message: "sending cart data!",
-        })
-      );
+    // const sendcartData = async () => {
+    //   dispatch(
+    //     uiActions.showNotification({
+    //       status: "pending",
+    //       title: "sending...",
+    //       message: "sending cart data!",
+    //     })
+    //   );
 
-      const res = await fetch(
-        "https://react-http-dd4c9-default-rtdb.firebaseio.com/cart.json",
-        {
-          method: "PUT",
-          body: JSON.stringify(cart),
-        }
-      );
+    //   const res = await fetch(
+    //     "https://react-http-dd4c9-default-rtdb.firebaseio.com/cart.json",
+    //     {
+    //       method: "PUT",
+    //       body: JSON.stringify(cart),
+    //     }
+    //   );
 
-      if (!res.ok) {
-        throw new Error("Sending cart data failed");
-      }
+    //   if (!res.ok) {
+    //     throw new Error("Sending cart data failed");
+    //   }
 
-      dispatch(
-        uiActions.showNotification({
-          status: "Success",
-          title: "Success!",
-          message: "Success receive Data!",
-        })
-      );
-    };
+    //   dispatch(
+    //     uiActions.showNotification({
+    //       status: "Success",
+    //       title: "Success!",
+    //       message: "Success receive Data!",
+    //     })
+    //   );
+    // };
 
     if (isInitial) {
       isInitial = false;
       return;
     }
+    dispatch(sendCartData(cart));
 
-    sendcartData().catch((error) => {
-      dispatch(
-        uiActions.showNotification({
-          status: "error",
-          title: "Error!",
-          message: "Error receive Data!",
-        })
-      );
-    });
+    // sendcartData().catch((error) => {
+    //   dispatch(
+    //     uiActions.showNotification({
+    //       status: "error",
+    //       title: "Error!",
+    //       message: "Error receive Data!",
+    //     })
+    //   );
+    // });
   }, [cart, dispatch]);
 
   return (
